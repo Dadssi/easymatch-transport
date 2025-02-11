@@ -1,21 +1,31 @@
-<?php
-if($_SERVER['SERVER_NAME'] == 'localhost'){
+<?php 
 
-    /** DATABASE CONFIG **/
-    define('DBNAME', 'easymatch');
-    define('DBHOST', 'localhost');
-    define('DBUSER', 'postgres');
-    define('DBPASSWORD', '12345');
-    define('DBDRIVER', 'PostgreSQL');
+if($_SERVER['SERVER_NAME'] == 'localhost')
+{
+	/** database config **/
+	define('DBNAME', 'my_db');
+	define('DBHOST', 'localhost');
+	define('DBUSER', 'root');
+	define('DBPASS', '');
+	define('DBDRIVER', '');
+	
+	define('ROOT', 'http://localhost/mvc/public');
 
-    define('ROOT', 'http://localhost/easymatch-transport/public');
-}else {
-     /** DATABASE CONFIG **/
-     define('DBNAME', '');
-     define('DBHOST', '');
-     define('DBUSER', '');
-     define('DBPASSWORD', '');
-     define('DBDRIVER', '');
+}else
+{
+	/** database config **/
+	define('DBNAME', 'my_db');
+	define('DBHOST', 'localhost');
+	define('DBUSER', 'root');
+	define('DBPASS', '');
+	define('DBDRIVER', '');
 
-    define('ROOT', 'https://www.yourwebsite.com');
+	define('ROOT', 'https://www.yourwebsite.com');
+
 }
+
+define('APP_NAME', "My Webiste");
+define('APP_DESC', "Best website on the planet");
+
+/** true means show errors **/
+define('DEBUG', true);
