@@ -86,6 +86,7 @@ CREATE TABLE logs (
     action TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+-- comment
 
 
 
