@@ -10,8 +10,7 @@ Trait Controller
 		{
 			require $filename;
 		}else{
-
-			$filename = "../app/views/404.view.php";
+			$filename = "../app/views/404.php";
 			require $filename;
 		}
 	}
