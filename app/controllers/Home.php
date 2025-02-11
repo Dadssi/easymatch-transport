@@ -6,6 +6,7 @@
 class Home
 {
 	use Controller;
+	//jjd
 
 	public function index()
 	{
