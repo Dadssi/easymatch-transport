@@ -1,0 +1,826 @@
+{
+    "cities": [
+      {
+        "id": 1,
+        "city": "Casablanca",
+        "lat": 33.5731,
+        "lon": -7.5898
+      },
+      {
+        "id": 2,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 3,
+        "city": "Rabat",
+        "lat": 34.020882,
+        "lon": -6.84165
+      },
+      {
+        "id": 4,
+        "city": "Fes",
+        "lat": 34.0585,
+        "lon": -5.0008
+      },
+      {
+        "id": 6,
+        "city": "Agadir",
+        "lat": 30.4206,
+        "lon": -9.5981
+      },
+      {
+        "id": 7,
+        "city": "Tanger",
+        "lat": 35.7669,
+        "lon": -5.7999
+      },
+      {
+        "id": 8,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 9,
+        "city": "Meknes",
+        "lat": 33.8938,
+        "lon": -5.5517
+      },
+      {
+        "id": 10,
+        "city": "Safi",
+        "lat": 32.0002,
+        "lon": -9.2385
+      },
+      {
+        "id": 11,
+        "city": "Kenitra",
+        "lat": 34.2624,
+        "lon": -6.5719
+      },
+      {
+        "id": 12,
+        "city": "El Jadida",
+        "lat": 33.2494,
+        "lon": -8.5041
+      },
+      {
+        "id": 13,
+        "city": "Settat",
+        "lat": 33.0003,
+        "lon": -7.6103
+      },
+      {
+        "id": 14,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 15,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 16,
+        "city": "Nador",
+        "lat": 35.1672,
+        "lon": -2.9333
+      },
+      {
+        "id": 18,
+        "city": "Taza",
+        "lat": 34.2321,
+        "lon": -4.0039
+      },
+      {
+        "id": 20,
+        "city": "Azilal",
+        "lat": 31.9148,
+        "lon": -6.6728
+      },
+      {
+        "id": 21,
+        "city": "Ifrane",
+        "lat": 33.5305,
+        "lon": -5.1516
+      },
+      {
+        "id": 23,
+        "city": "Ouarzazate",
+        "lat": 30.9274,
+        "lon": -6.8951
+      },
+      {
+        "id": 24,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 25,
+        "city": "Sidi Ifni",
+        "lat": 29.3875,
+        "lon": -10.1719
+      },
+      {
+        "id": 26,
+        "city": "Zagora",
+        "lat": 30.3383,
+        "lon": -5.8487
+      },
+      {
+        "id": 27,
+        "city": "Errachidia",
+        "lat": 31.9342,
+        "lon": -4.4235
+      },
+      {
+        "id": 29,
+        "city": "Laayoune",
+        "lat": 27.1415,
+        "lon": -13.1882
+      },
+      {
+        "id": 30,
+        "city": "Essaouira",
+        "lat": 31.506,
+        "lon": -9.7705
+      },
+      {
+        "id": 31,
+        "city": "Tan-Tan",
+        "lat": 28.4376,
+        "lon": -11.1153
+      },
+      {
+        "id": 32,
+        "city": "Tiznit",
+        "lat": 29.7097,
+        "lon": -9.7364
+      },
+      {
+        "id": 36,
+        "city": "Khouribga",
+        "lat": 32.8833,
+        "lon": -6.9061
+      },
+      {
+        "id": 37,
+        "city": "Sefrou",
+        "lat": 33.8397,
+        "lon": -5.4972
+      },
+      {
+        "id": 38,
+        "city": "Nador",
+        "lat": 35.1672,
+        "lon": -2.9333
+      },
+      {
+        "id": 40,
+        "city": "Midelt",
+        "lat": 32.6821,
+        "lon": -4.7361
+      },
+      {
+        "id": 42,
+        "city": "Sidi Kacem",
+        "lat": 34.1814,
+        "lon": -5.7361
+      },
+      {
+        "id": 45,
+        "city": "Azemmour",
+        "lat": 33.2167,
+        "lon": -8.5261
+      },
+      {
+        "id": 46,
+        "city": "Laayoune",
+        "lat": 27.1415,
+        "lon": -13.1882
+      },
+      {
+        "id": 47,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 48,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 49,
+        "city": "Tiznit",
+        "lat": 29.7097,
+        "lon": -9.7364
+      },
+      {
+        "id": 50,
+        "city": "Safi",
+        "lat": 32.0002,
+        "lon": -9.2385
+      },
+      {
+        "id": 51,
+        "city": "Essaouira",
+        "lat": 31.506,
+        "lon": -9.7705
+      },
+      {
+        "id": 53,
+        "city": "Rabat",
+        "lat": 34.020882,
+        "lon": -6.84165
+      },
+      {
+        "id": 54,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 55,
+        "city": "Tetouan",
+        "lat": 35.5882,
+        "lon": -5.3701
+      },
+      {
+        "id": 57,
+        "city": "Chefchaouen",
+        "lat": 35.1736,
+        "lon": -5.2673
+      },
+      {
+        "id": 58,
+        "city": "Al Hoceima",
+        "lat": 35.2500,
+        "lon": -3.9333
+      },
+      {
+        "id": 59,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 62,
+        "city": "Meknes",
+        "lat": 33.8938,
+        "lon": -5.5517
+      },
+      {
+        "id": 63,
+        "city": "Fes",
+        "lat": 34.0585,
+        "lon": -5.0008
+      },
+      {
+        "id": 64,
+        "city": "Settat",
+        "lat": 33.0003,
+        "lon": -7.6103
+      },
+      {
+        "id": 65,
+        "city": "Kenitra",
+        "lat": 34.2624,
+        "lon": -6.5719
+      },
+      {
+        "id": 66,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 67,
+        "city": "Ouarzazate",
+        "lat": 30.9274,
+        "lon": -6.8951
+      },
+      {
+        "id": 68,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 69,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 70,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 72,
+        "city": "Midelt",
+        "lat": 32.6821,
+        "lon": -4.7361
+      },
+      {
+        "id": 74,
+        "city": "Sidi Kacem",
+        "lat": 34.1814,
+        "lon": -5.7361
+      },
+      {
+        "id": 77,
+        "city": "Azemmour",
+        "lat": 33.2167,
+        "lon": -8.5261
+      },
+      {
+        "id": 78,
+        "city": "Laayoune",
+        "lat": 27.1415,
+        "lon": -13.1882
+      },
+      {
+        "id": 79,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 80,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 81,
+        "city": "Tiznit",
+        "lat": 29.7097,
+        "lon": -9.7364
+      },
+      {
+        "id": 82,
+        "city": "Safi",
+        "lat": 32.0002,
+        "lon": -9.2385
+      },
+      {
+        "id": 83,
+        "city": "Essaouira",
+        "lat": 31.506,
+        "lon": -9.7705
+      },
+      {
+        "id": 85,
+        "city": "Rabat",
+        "lat": 34.020882,
+        "lon": -6.84165
+      },
+      {
+        "id": 86,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 87,
+        "city": "Tetouan",
+        "lat": 35.5882,
+        "lon": -5.3701
+      },
+      {
+        "id": 89,
+        "city": "Chefchaouen",
+        "lat": 35.1736,
+        "lon": -5.2673
+      },
+      {
+        "id": 90,
+        "city": "Al Hoceima",
+        "lat": 35.2500,
+        "lon": -3.9333
+      },
+      {
+        "id": 91,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 94,
+        "city": "Meknes",
+        "lat": 33.8938,
+        "lon": -5.5517
+      },
+      {
+        "id": 95,
+        "city": "Fes",
+        "lat": 34.0585,
+        "lon": -5.0008
+      },
+      {
+        "id": 96,
+        "city": "Settat",
+        "lat": 33.0003,
+        "lon": -7.6103
+      },
+      {
+        "id": 97,
+        "city": "Kenitra",
+        "lat": 34.2624,
+        "lon": -6.5719
+      },
+      {
+        "id": 98,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 99,
+        "city": "Ouarzazate",
+        "lat": 30.9274,
+        "lon": -6.8951
+      },
+      {
+        "id": 100,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 101,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 102,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 104,
+        "city": "Midelt",
+        "lat": 32.6821,
+        "lon": -4.7361
+      },
+      {
+        "id": 106,
+        "city": "Sidi Kacem",
+        "lat": 34.1814,
+        "lon": -5.7361
+      },
+      {
+        "id": 109,
+        "city": "Azemmour",
+        "lat": 33.2167,
+        "lon": -8.5261
+      },
+      {
+        "id": 110,
+        "city": "Laayoune",
+        "lat": 27.1415,
+        "lon": -13.1882
+      },
+      {
+        "id": 111,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 112,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 113,
+        "city": "Tiznit",
+        "lat": 29.7097,
+        "lon": -9.7364
+      },
+      {
+        "id": 114,
+        "city": "Safi",
+        "lat": 32.0002,
+        "lon": -9.2385
+      },
+      {
+        "id": 115,
+        "city": "Essaouira",
+        "lat": 31.506,
+        "lon": -9.7705
+      },
+      {
+        "id": 117,
+        "city": "Rabat",
+        "lat": 34.020882,
+        "lon": -6.84165
+      },
+      {
+        "id": 118,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 119,
+        "city": "Tetouan",
+        "lat": 35.5882,
+        "lon": -5.3701
+      },
+      {
+        "id": 121,
+        "city": "Chefchaouen",
+        "lat": 35.1736,
+        "lon": -5.2673
+      },
+      {
+        "id": 122,
+        "city": "Al Hoceima",
+        "lat": 35.2500,
+        "lon": -3.9333
+      },
+      {
+        "id": 123,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 126,
+        "city": "Meknes",
+        "lat": 33.8938,
+        "lon": -5.5517
+      },
+      {
+        "id": 127,
+        "city": "Fes",
+        "lat": 34.0585,
+        "lon": -5.0008
+      },
+      {
+        "id": 128,
+        "city": "Settat",
+        "lat": 33.0003,
+        "lon": -7.6103
+      },
+      {
+        "id": 129,
+        "city": "Kenitra",
+        "lat": 34.2624,
+        "lon": -6.5719
+      },
+      {
+        "id": 130,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 131,
+        "city": "Ouarzazate",
+        "lat": 30.9274,
+        "lon": -6.8951
+      },
+      {
+        "id": 132,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 133,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 134,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 136,
+        "city": "Midelt",
+        "lat": 32.6821,
+        "lon": -4.7361
+      },
+      {
+        "id": 138,
+        "city": "Sidi Kacem",
+        "lat": 34.1814,
+        "lon": -5.7361
+      },
+      {
+        "id": 141,
+        "city": "Azemmour",
+        "lat": 33.2167,
+        "lon": -8.5261
+      },
+      {
+        "id": 142,
+        "city": "Laayoune",
+        "lat": 27.1415,
+        "lon": -13.1882
+      },
+      {
+        "id": 143,
+        "city": "Tiznit",
+        "lat": 29.7097,
+        "lon": -9.7364
+      },
+      {
+        "id": 144,
+        "city": "Safi",
+        "lat": 32.0002,
+        "lon": -9.2385
+      },
+      {
+        "id": 145,
+        "city": "Essaouira",
+        "lat": 31.506,
+        "lon": -9.7705
+      },
+      {
+        "id": 147,
+        "city": "Rabat",
+        "lat": 34.020882,
+        "lon": -6.84165
+      },
+      {
+        "id": 148,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 149,
+        "city": "Tetouan",
+        "lat": 35.5882,
+        "lon": -5.3701
+      },
+      {
+        "id": 151,
+        "city": "Chefchaouen",
+        "lat": 35.1736,
+        "lon": -5.2673
+      },
+      {
+        "id": 152,
+        "city": "Al Hoceima",
+        "lat": 35.2500,
+        "lon": -3.9333
+      },
+      {
+        "id": 153,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 156,
+        "city": "Meknes",
+        "lat": 33.8938,
+        "lon": -5.5517
+      },
+      {
+        "id": 157,
+        "city": "Fes",
+        "lat": 34.0585,
+        "lon": -5.0008
+      },
+      {
+        "id": 158,
+        "city": "Settat",
+        "lat": 33.0003,
+        "lon": -7.6103
+      },
+      {
+        "id": 159,
+        "city": "Kenitra",
+        "lat": 34.2624,
+        "lon": -6.5719
+      },
+      {
+        "id": 160,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      },
+      {
+        "id": 161,
+        "city": "Ouarzazate",
+        "lat": 30.9274,
+        "lon": -6.8951
+      },
+      {
+        "id": 162,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 163,
+        "city": "Beni Mellal",
+        "lat": 32.3325,
+        "lon": -6.3627
+      },
+      {
+        "id": 164,
+        "city": "Taroudant",
+        "lat": 30.4749,
+        "lon": -8.8774
+      },
+      {
+        "id": 166,
+        "city": "Midelt",
+        "lat": 32.6821,
+        "lon": -4.7361
+      },
+      {
+        "id": 168,
+        "city": "Sidi Kacem",
+        "lat": 34.1814,
+        "lon": -5.7361
+      },
+      {
+        "id": 171,
+        "city": "Azemmour",
+        "lat": 33.2167,
+        "lon": -8.5261
+      },
+      {
+        "id": 172,
+        "city": "Laayoune",
+        "lat": 27.1415,
+        "lon": -13.1882
+      },
+      {
+        "id": 173,
+        "city": "Tiznit",
+        "lat": 29.7097,
+        "lon": -9.7364
+      },
+      {
+        "id": 174,
+        "city": "Safi",
+        "lat": 32.0002,
+        "lon": -9.2385
+      },
+      {
+        "id": 175,
+        "city": "Essaouira",
+        "lat": 31.506,
+        "lon": -9.7705
+      },
+      {
+        "id": 177,
+        "city": "Rabat",
+        "lat": 34.020882,
+        "lon": -6.84165
+      },
+      {
+        "id": 178,
+        "city": "Oujda",
+        "lat": 34.6868,
+        "lon": -1.9137
+      },
+      {
+        "id": 179,
+        "city": "Tetouan",
+        "lat": 35.5882,
+        "lon": -5.3701
+      },
+      {
+        "id": 181,
+        "city": "Chefchaouen",
+        "lat": 35.1736,
+        "lon": -5.2673
+      },
+      {
+        "id": 182,
+        "city": "Al Hoceima",
+        "lat": 35.2500,
+        "lon": -3.9333
+      },
+      {
+        "id": 183,
+        "city": "Marrakech",
+        "lat": 31.6295,
+        "lon": -7.9811
+      }
+    ]
+  }
