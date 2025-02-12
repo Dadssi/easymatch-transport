@@ -1,3 +1,4 @@
+CREATE DATABASE easymatch;
 -- ========================================
 -- 1- USERS ===============================
 -- ========================================
@@ -14,6 +15,7 @@ CREATE TABLE users (
     role user_role NOT NULL,
     vehicle_category_id INT REFERENCES vehicle_categories(id);
     is_verified BOOLEAN DEFAULT FALSE, -- Badge "Vérifié"
+    is_banned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 -- ========================================
@@ -86,4 +88,3 @@ CREATE TABLE logs (
     action TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
--- comment
