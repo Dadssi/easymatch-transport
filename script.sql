@@ -1,3 +1,4 @@
+CREATE DATABASE easymatch;
 -- ========================================
 -- 1- USERS ===============================
 -- ========================================
@@ -14,6 +15,7 @@ CREATE TABLE users (
     role user_role NOT NULL,
     vehicle_category_id INT REFERENCES vehicle_categories(id);
     is_verified BOOLEAN DEFAULT FALSE, -- Badge "Vérifié"
+    is_banned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 -- ========================================
@@ -84,103 +86,5 @@ CREATE TABLE logs (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id) ON DELETE SET NULL,
     action TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- Drop tables if they exist (to start fresh)
-DROP TABLE IF EXISTS logs, verifications, routes, shipments, announcements, users CASCADE;
- 
--- User Table
-
- 
--- Logs Table (for system logs, viewed by admins)
-
- 
--- Announcement Table (driver posts available transport routes)
-CREATE TABLE announcements (
-    id SERIAL PRIMARY KEY,
-    driver_id INT REFERENCES users(id) ON DELETE CASCADE,
-    
-    start_city VARCHAR(100) NOT NULL,
-    end_city VARCHAR(100) NOT NULL,
-    travel_date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
- 
--- Routes Table (for step-by-step driver's itinerary between start and end city)
-CREATE TABLE routes (
-    id SERIAL PRIMARY KEY,
-    announcement_id INT REFERENCES announcements(id) ON DELETE CASCADE,
-    driver_id INT REFERENCES users(id) ON DELETE CASCADE,
-    stop_city VARCHAR(100) NOT NULL,
-    step_order INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
- 
--- Shipment Table (for storing package details)
-CREATE TABLE shipments (
-    id SERIAL PRIMARY KEY,
-    sender_id INT REFERENCES users(id) ON DELETE CASCADE,
-    driver_id INT REFERENCES users(id) ON DELETE CASCADE,
-    announcement_id INT REFERENCES announcements(id) ON DELETE CASCADE,
-    dimensions JSONB NOT NULL,  -- Ex: {"length": 50, "width": 30, "height": 20}
-    weight DECIMAL(10,2) NOT NULL,
-    destination VARCHAR(100) NOT NULL,
-    status VARCHAR(20) CHECK (status IN ('pending', 'accepted', 'shipped', 'delivered')) DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
- 
--- Verification Table (for ID verification process)
-CREATE TABLE verifications (
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    id_card_path TEXT NOT NULL,  -- Path to stored ID image file
-    status VARCHAR(20) CHECK (status IN ('pending', 'verified', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
