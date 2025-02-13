@@ -105,9 +105,10 @@
 
     function initMap() {
         map = L.map('map').setView([31.7917, -7.0926], 6); // Centre du Maroc
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '&copy; Esri, HERE, Garmin, FAO, NOAA'
+}).addTo(map);//voici la partie du code modifiée pour contenire l'API de la map contenant le Sahara Marocain 
+
     }
 
     function addWaypoint() {
