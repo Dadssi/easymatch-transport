@@ -1,9 +1,12 @@
 /********** Template CSS **********/
 :root {
 <<<<<<< HEAD
+<<<<<<< HEAD
     --primary: #00B98E;
 =======
     /* --primary: #00B98E; */
+=======
+>>>>>>> cd14d54592d190ceecec78c7830f57d8210eebbc
     --primary: #d71920;
 >>>>>>> f1c764c7ee1c41cf4ee3b2b58d5b0bc6d8c77a5c
     --secondary: #FF6922;
@@ -219,9 +222,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF !important;
+    background: #FFFFFF;
     border-radius: 50px;
-    border: 1px dashed var(--primary) !important;
+    border: 1px dashed var(--primary);
 }
 
 
@@ -261,7 +264,7 @@
 }
 
 .cat-item:hover div * {
-    color: #FFFFFF !important;
+    color: #FFFFFF;
 }
 
 
@@ -275,24 +278,24 @@
     color: #FFFFFF;
 }
 
-.property-item {
+.conducteur-box {
     box-shadow: 0 0 30px rgba(0, 0, 0, .08);
 }
 
-.property-item img {
+.conducteur-box img {
     transition: .5s;
 }
 
-.property-item:hover img {
+.conducteur-box:hover img {
     transform: scale(1.1);
 }
 
-.property-item .border-top {
-    border-top: 1px dashed rgba(0, 185, 142, .3) !important;
+.conducteur-box .border-top {
+    border-top: 1px dashed rgba(0, 185, 142, .3);
 }
 
-.property-item .border-end {
-    border-right: 1px dashed rgba(0, 185, 142, .3) !important;
+.conducteur-box .border-end {
+    border-right: 1px dashed rgba(0, 185, 142, .3);
 }
 
 
@@ -314,15 +317,15 @@
 }
 
 .team-item:hover {
-    border-color: var(--secondary) !important;
+    border-color: var(--secondary);
 }
 
 .team-item:hover .bg-primary {
-    background: var(--secondary) !important;
+    background: var(--secondary);
 }
 
 .team-item:hover .bg-primary i {
-    color: var(--secondary) !important;
+    color: var(--secondary);
 }
 
 
@@ -340,7 +343,7 @@
 }
 
 .testimonial-carousel .testimonial-item .border {
-    border: 1px dashed rgba(0, 185, 142, .3) !important;
+    border: 1px dashed rgba(0, 185, 142, .3);
 }
 
 .testimonial-carousel .owl-nav {
@@ -443,3 +446,41 @@
     padding-right: 0;
     border-right: none;
 }
+
+.flatpickr-calendar {
+    background: #f8f9fa !important; /* Changer la couleur de fond */
+    border: 1px solid #007bff !important; /* Bordure bleue */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* Ajouter une ombre */
+}
+/* ---------------------------------------------------------------------------------------- */
+#map-container{
+    display: flex;
+}
+#map {
+    height: 500px;
+    width: 70%;
+    margin: 20px 0;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#waypoints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+/* button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+} */
+ #conducteurs-verifies-container{
+    display: flex;
+ }
+ #verified-title{
+    width: 70%;
+    margin: auto;
+ }
+/* ---------------------------------------------------------------------------------------- */
