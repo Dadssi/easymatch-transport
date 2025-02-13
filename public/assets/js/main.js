@@ -79,3 +79,22 @@
     
 })(jQuery);
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    flatpickr("#datePicker", {
+        enableTime: false, 
+        dateFormat: "Y-m-d", 
+        minDate: "today" // Empêche la sélection des dates passées
+    });
+});
+// document.addEventListener("DOMContentLoaded", function () {
+//     console.log("Flatpickr test : script chargé !");
+    
+//     let datePicker = flatpickr("#datePicker", {
+//         minDate: "today",
+//         dateFormat: "d-m-Y" // Format facultatif
+//     });
+
+//     console.log("Flatpickr instance :", datePicker);
+// });
+// ----------------------------------------------------------------------------------------------

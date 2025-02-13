@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="utf-8">
     <title>EasyMatch - Transport</title>
@@ -29,8 +28,16 @@
 
     <!-- Template Stylesheet -->
     <link href="<?php echo ROOT ?>/assets/css/style.css" rel="stylesheet">
-</head>
+    
+    <!--  bibliothèque Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    
+    
+
+</head>
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -46,7 +53,7 @@
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
                 <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
                     <div class="icon p-2 me-2">
-                        <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/icon-deal.png" alt="Icon" style="width: 30px; height: 30px;">
+                        <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/logo-easymatch.png" alt="Icon" style="width: 30px; height: 30px;">
                     </div>
                     <h1 class="m-0 text-primary">EasyMatch</h1>
                 </a>
@@ -55,26 +62,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Property</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="property-list.html" class="dropdown-item">Property List</a>
-                                <a href="property-type.html" class="dropdown-item">Property Type</a>
-                                <a href="property-agent.html" class="dropdown-item">Property Agent</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Error</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="#" class="nav-item nav-link active">Accueil</a>
+                        <a href="#about-section" class="nav-item nav-link">A propos</a>
+                        <a href="#conducteurs-certifies" class="nav-item nav-link">Conducteurs</a>
+                        <a href="contact.html" class="nav-item nav-link">nous contacter</a>
                     </div>
-                    <a href="" class="btn btn-primary px-3 d-none d-lg-flex">Add Property</a>
+                    <a href="" class="btn btn-primary px-3 d-none d-lg-flex">Se Connecter</a>
                 </div>
             </nav>
         </div>
