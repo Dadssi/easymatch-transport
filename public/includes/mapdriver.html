@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Itineraire au Maroc</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+   
+  </head>
+  <body>
+    <div class="container">
+      <h1>Itineraire au Maroc</h1>
+      <div class="route-inputs">
+        <select id="start">
+          <option value="">Point de depart</option>
+        </select>
+        <select id="end">
+          <option value="">Point d'arrivee</option>
+        </select>
+      </div>
+      <div id="waypoints"></div>
+      <button onclick="addWaypoint()">Ajouter une ville intermediaire</button>
+      <button onclick="displayRoute()">Afficher l'itineraire</button>
+      <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      let map;
+      let routeLayer;
+      let cities = [];
+      const OPENROUTE_API_KEY =
+        "5b3ce3597851110001cf6248a7064ad297da4fb69da7048a587efa99";
+      const JSON_PATH = "cities.json"; // Chemin vers votre fichier JSON
+
+      // Fonction pour charger les villes depuis le fichier JSON
+      async function loadCities() {
+        try {
+          const response = await fetch(JSON_PATH);
+          const data = await response.json();
+          console.log(data);
+          cities = data.cities;
+          populateSelects();
+        } catch (error) {
+          console.error("Erreur lors du chargement des villes:", error);
+          alert("Erreur lors du chargement des villes");
+        }
+      }
+
+      // Fonction pour eliminer les doublons et trier les villes
+      function getUniqueCities() {
+        const uniqueCities = {};
+        cities.forEach((city) => {
+          if (!uniqueCities[city.city]) {
+            uniqueCities[city.city] = city;
+          }
+        });
+        return Object.values(uniqueCities).sort((a, b) =>
+          a.city.localeCompare(b.city)
+        );
+      }
+
+      function populateSelects() {
+        const uniqueCities = getUniqueCities();
+        const selects = document.querySelectorAll("select");
+        selects.forEach((select) => {
+          if (select.options.length <= 1) {
+            uniqueCities.forEach((city) => {
+              const option = document.createElement("option");
+              option.value = JSON.stringify({ lat: city.lat, lng: city.lon });
+              option.textContent = city.city;
+              select.appendChild(option);
+            });
+          }
+        });
+      }
+
+      function initMap() {
+        map = L.map("map").setView([31.7917, -7.0926], 6); // Centre du Maroc
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "© OpenStreetMap contributors",
+        }).addTo(map);
+      }
+
+      function addWaypoint() {
+        const waypointsDiv = document.getElementById("waypoints");
+        const select = document.createElement("select");
+        select.innerHTML = '<option value="">Ville intermediaire</option>';
+        getUniqueCities().forEach((city) => {
+          const option = document.createElement("option");
+          option.value = JSON.stringify({ lat: city.lat, lng: city.lon });
+          option.textContent = city.city;
+          select.appendChild(option);
+        });
+        waypointsDiv.appendChild(select);
+      }
+
+      async function displayRoute() {
+        const startValue = document.getElementById("start").value;
+        const endValue = document.getElementById("end").value;
+
+        if (!startValue || !endValue) {
+          alert(
+            "Veuillez selectionner un point de depart et un point d'arrivee."
+          );
+          return;
+        }
+
+        const start = JSON.parse(startValue);
+        const end = JSON.parse(endValue);
+
+        const waypointSelects = document.querySelectorAll("#waypoints select");
+        const waypoints = Array.from(waypointSelects)
+          .filter((select) => select.value)
+          .map((select) => JSON.parse(select.value));
+
+        const coordinates = [
+          [start.lng, start.lat],
+          ...waypoints.map((point) => [point.lng, point.lat]),
+          [end.lng, end.lat],
+        ];
+
+        console.log("Coordonnees envoyees à l'API :", coordinates);
+
+        try {
+          // Suppression des anciens elements
+          if (routeLayer) {
+            map.removeLayer(routeLayer);
+          }
+
+          map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+              map.removeLayer(layer);
+            }
+          });
+
+          // Envoi de la requête à OpenRouteService
+          const response = await fetch(
+            "https://api.openrouteservice.org/v2/directions/driving-car/geojson",
+            {
+              method: "POST",
+              headers: {
+                Authorization: OPENROUTE_API_KEY,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ coordinates: coordinates }),
+            }
+          );
+
+          if (!response.ok) {
+            console.error(
+              "Erreur HTTP :",
+              response.status,
+              await response.text()
+            );
+            throw new Error("Erreur API OpenRouteService: " + response.status);
+          }
+
+          const data = await response.json();
+          console.log("Reponse API :", data);
+
+          if (!data.features || data.features.length === 0) {
+            throw new Error("Aucun itineraire trouve.");
+          }
+
+          // Ajouter des marqueurs
+          coordinates.forEach((coord) => {
+            L.marker([coord[1], coord[0]]).addTo(map);
+          });
+
+          // Dessiner la route
+          const route = data.features[0].geometry.coordinates.map((coord) => [
+            coord[1],
+            coord[0],
+          ]);
+          routeLayer = L.polyline(route, { color: "blue", weight: 5 }).addTo(
+            map
+          );
+          map.fitBounds(routeLayer.getBounds());
+        } catch (error) {
+          console.error("Erreur lors du calcul de l'itineraire :", error);
+          alert(
+            "Erreur lors du calcul de l'itineraire. Verifiez vos selections."
+          );
+        }
+      }
+
+      // Initialisation
+      initMap();
+      loadCities();
+    </script>
+  </body>
+</html>
