@@ -88,3 +88,42 @@ CREATE TABLE logs (
     action TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+
+
+
+-- INSERT INTO vehicle_categories (name, max_volume)
+-- VALUES
+--     ('Économique', 10.0),
+--     ('Camionnette', 20.0),
+--     ('Camion', 50.0),
+--     ('Remorque', 30.0);
+
+
+
+-- INSERT INTO users (first_name, last_name, email, password, phone, birthday, role, vehicle_category_id, is_verified, is_banned, created_at)
+-- VALUES
+--     ('Alice', 'Martin', 'alice.martin@example.com', 'hashed_password1', '0612345678', '1990-05-15', 'sender', NULL, TRUE, FALSE, NOW()),
+--     ('Bob', 'Dupont', 'bob.dupont@example.com', 'hashed_password2', '0698765432', '1985-08-22', 'driver', 2, TRUE, FALSE, NOW()),
+--     ('Charlie', 'Durand', 'charlie.durand@example.com', 'hashed_password3', '0678123456', '1978-11-30', 'driver', 3, FALSE, FALSE, NOW());
+
+
+-- INSERT INTO package_types (name)
+-- VALUES
+--     ('Fragile'),
+--     ('Alimentaire'),
+--     ('Électronique');
+-- INSERT INTO driver_announcements (driver_id, vehicle_category_id, total_volume, available_volume, departure_city, arrival_city, departure_date, status, created_at)
+-- VALUES
+--     (2, 2, 20.0, 15.0, 'Paris', 'Lyon', '2025-03-01 08:00:00', 'pending', NOW()),
+--     (3, 3, 50.0, 50.0, 'Marseille', 'Nice', '2025-03-05 09:00:00', 'pending', NOW()),
+--     (3, 3, 50.0, 40.0, 'Bordeaux', 'Toulouse', '2025-03-10 10:00:00', 'pending', NOW());
+    
+--     INSERT INTO packages (sender_id, driver_announcement_id, description, weight, dimensions, package_type_id, status, created_at)
+-- VALUES
+--     (1, 1, 'Vase en porcelaine', 2, '10x10x20 cm', 1, 'pending', NOW()),
+--     (1, 2, 'Boîte de chocolats', 1, '15x15x5 cm', 2, 'pending', NOW()),
+--     (1, 3, 'Ordinateur portable', 3, '30x20x5 cm', 3, 'pending', NOW());
+

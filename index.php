@@ -68,7 +68,7 @@ $data = json_encode([
         // Graphique des Annonces
         const ctxAnnonces = document.getElementById('annoncesChart').getContext('2d');
         new Chart(ctxAnnonces, {
-            type: 'pie',
+            type: 'line',
             data: {
                 labels: ['Annonces'],
                 datasets: [{
@@ -83,7 +83,7 @@ $data = json_encode([
         // Graphique des Demandes
         const ctxDemandes = document.getElementById('demandesChart').getContext('2d');
         new Chart(ctxDemandes, {
-            type: 'pie',
+            type: 'line',
             data: {
                 labels: ['Demandes'],
                 datasets: [{
@@ -98,7 +98,7 @@ $data = json_encode([
         // Graphique des Transactions
         const ctxTransactions = document.getElementById('transactionsChart').getContext('2d');
         new Chart(ctxTransactions, {
-            type: 'pie',
+            type: 'line',
             data: {
                 labels: ['Transactions'],
                 datasets: [{
