@@ -3,26 +3,26 @@ class AnnouncementModel {
     private $db;
     public $id;
     public $driver_id;
-    public $vehicle_type; // Updated property: stores vehicle type instead of vehicle_id
+    public $vehicle_type; 
     public $available_from;
     public $available_until;
-    // Note: 'cities' is handled in methods (it is not stored as a column)
+   
 
     public function __construct($db) {
         $this->db = $db;
     }
 
     public function create($cities) {
-        // Validate required fields
+       
         if (!isset($this->driver_id, $this->vehicle_type, $this->available_from, $this->available_until)) {
             throw new Exception("Missing required fields");
         }
 
         try {
-            // Start transaction
+            
             $this->db->beginTransaction();
 
-            // Insert main announcement
+            
             $stmt = $this->db->prepare("
                 INSERT INTO driver_announcements 
                 (driver_id, vehicle_type, available_from, available_until) 
@@ -37,7 +37,7 @@ class AnnouncementModel {
             
             $announcement_id = $this->db->lastInsertId();
 
-            // Insert cities with sequence
+            
             $cityStmt = $this->db->prepare("
                 INSERT INTO announcement_cities 
                 (announcement_id, city, sequence) 
@@ -48,7 +48,7 @@ class AnnouncementModel {
                 $cityStmt->execute([$announcement_id, $city, $index]);
             }
 
-            // Commit transaction
+            
             $this->db->commit();
             return $announcement_id;
 
@@ -102,7 +102,7 @@ class AnnouncementModel {
     }
 
     public function delete() {
-        // Fetch route_id associated with the announcement
+        
         $sqlSelect = "SELECT route_id FROM driver_announcements WHERE announcement_id = ?";
         $stmtSelect = $this->db->prepare($sqlSelect);
         $stmtSelect->execute([$this->id]);
@@ -112,17 +112,17 @@ class AnnouncementModel {
         }
         $route_id = $data['route_id'];
 
-        // Delete the announcement
+        
         $sqlDeleteAnnouncement = "DELETE FROM driver_announcements WHERE announcement_id = ?";
         $stmtDeleteAnnouncement = $this->db->prepare($sqlDeleteAnnouncement);
         $stmtDeleteAnnouncement->execute([$this->id]);
 
-        // Delete route points associated with the route
+        
         $sqlDeleteRoutePoints = "DELETE FROM route_points WHERE route_id = ?";
         $stmtDeleteRoutePoints = $this->db->prepare($sqlDeleteRoutePoints);
         $stmtDeleteRoutePoints->execute([$route_id]);
 
-        // Delete the route
+        
         $sqlDeleteRoute = "DELETE FROM routes WHERE route_id = ?";
         $stmtDeleteRoute = $this->db->prepare($sqlDeleteRoute);
         $stmtDeleteRoute->execute([$route_id]);
