@@ -74,7 +74,7 @@
         <!-- Navbar End -->
 
         <!-- Header Start -->
-        <div class="container-fluid header bg-white p-0">
+        <div class="container-fluid header bg-white p-0 mt-4">
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class="col-md-6 p-5 mt-lg-5">
                     <h1 class="display-5 animated fadeIn mb-4">Trouvez <span class="text-primary">le transport idéal</span> pour vos colis</h1>
@@ -154,10 +154,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3 translate-middle-y">
-                                            Appartment
-                                        </div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -169,8 +167,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -182,8 +180,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -195,8 +193,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -208,8 +206,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -221,8 +219,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -241,8 +239,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -254,8 +252,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -267,8 +265,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -280,8 +278,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -293,8 +291,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -306,8 +304,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -326,8 +324,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -339,8 +337,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -352,8 +350,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -365,8 +363,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -378,8 +376,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -391,8 +389,8 @@
                                 <div class="conducteur-box rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="<?php echo ROOT ?>/assets/img/driver-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">type vehicule</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="rounded position-absolute start-0 top-0 m-4 py-1 px-1"><img src="<?php echo ROOT ?>/assets/img/verified.png" alt="verified" id="verified-img" style="height: 40px; width: 100px;"></div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">type vehicule</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <a class="d-block h5 mb-2" href="">Nom du conducteur</a>
@@ -464,18 +462,20 @@
         <!-- Call to Action End -->
 
 
-        <!-- Team Start -->
-        <div class="container-xxl py-5">
+       <!-- Team Start -->
+        <div class="container-xxl py-4">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Notre équipe</h1>
-                    <p>Derrère cette application magnifique, il y a une équipe motivée, ambitieuse et experimentée.</p>
+                    <p>Derrière cette application magnifique, il y a une équipe motivée, ambitieuse et expérimentée.</p>
                 </div>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                
+                <div class="row g-5 justify-content-center mb-4">
+                    <!-- Première ligne (3 cartes) -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-1.jpg" alt="">
+                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-1.jpg" alt="Benoujja Oussama">
                                 <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -483,15 +483,16 @@
                                 </div>
                             </div>
                             <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Full Name</h5>
-                                <small>Designation</small>
+                                <h5 class="fw-bold mb-0">Benoujja Oussama</h5>
+                                <small>Responsable technique</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="team-item rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-2.jpg" alt="">
+                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-2.jpg" alt="Dadssi Mohamed Abdelhak">
                                 <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -499,15 +500,16 @@
                                 </div>
                             </div>
                             <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Full Name</h5>
-                                <small>Designation</small>
+                                <h5 class="fw-bold mb-0">Dadssi Mohamed Abdelhak</h5>
+                                <small>SCRUM MASTER</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="team-item rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-3.jpg" alt="">
+                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-3.jpg" alt="Fadwa El ouah">
                                 <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -515,15 +517,36 @@
                                 </div>
                             </div>
                             <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">Full Name</h5>
-                                <small>Designation</small>
+                                <h5 class="fw-bold mb-0">Fadwa El ouah</h5>
+                                <small>Responsable de qualité</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                </div>
+
+                <!-- Deuxième ligne (2 cartes centrées) -->
+                <div class="row g-5 justify-content-center">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-4.jpg" alt="">
+                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-4.jpg" alt="Moudiri Abdeljabbar">
+                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center p-4 mt-3">
+                                <h5 class="fw-bold mb-0">Moudiri Abdeljabbar</h5>
+                                <small>Chef de Produit </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
+                        <div class="team-item rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/team-5.jpg" alt="">
                                 <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -532,7 +555,7 @@
                             </div>
                             <div class="text-center p-4 mt-3">
                                 <h5 class="fw-bold mb-0">Full Name</h5>
-                                <small>Designation</small>
+                                <small>Responsable Relations Médias</small>
                             </div>
                         </div>
                     </div>
@@ -541,51 +564,53 @@
         </div>
         <!-- Team End -->
 
-
         <!-- Testimonial Start -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="mb-3">Our Clients Say!</h1>
-                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <h1 class="mb-3">Ce que disent nos clients !</h1>
+                    <p>Nous accordons une grande importance à la satisfaction de nos clients. Grâce à notre engagement et à 
+                        la qualité de nos services, nous avons gagné la confiance de nombreux utilisateurs. Leur retour 
+                        positif témoigne de notre professionnalisme et de notre volonté d'offrir la meilleure expérience possible. 
+                        Découvrez ce qu'ils pensent de nous !</p>
                 </div>
                 <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="testimonial-item bg-light rounded p-3">
-                        <div class="bg-white border rounded p-4">
-                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                            <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src="<?php echo ROOT ?>/assets/img/testimonial-1.jpg" style="width: 45px; height: 45px;">
-                                <div class="ps-3">
-                                    <h6 class="fw-bold mb-1">Client Name</h6>
-                                    <small>Profession</small>
-                                </div>
+                <div class="testimonial-item bg-light rounded p-3">
+                    <div class="bg-white border rounded p-4">
+                        <p>Grâce à EasyMatch Transport, j'ai pu optimiser mes trajets et rentabiliser l’espace inutilisé de mon véhicule. Une plateforme fiable et intuitive !</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="<?php echo ROOT ?>/assets/img/testimonial-2.jpg" style="width: 45px; height: 45px;">
+                            <div class="ps-3">
+                                <h6 class="fw-bold mb-1">Omar Bennani</h6>
+                                <small>Chauffeur-livreur</small>
                             </div>
                         </div>
                     </div>
-                    <div class="testimonial-item bg-light rounded p-3">
-                        <div class="bg-white border rounded p-4">
-                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                            <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src="<?php echo ROOT ?>/assets/img/testimonial-2.jpg" style="width: 45px; height: 45px;">
-                                <div class="ps-3">
-                                    <h6 class="fw-bold mb-1">Client Name</h6>
-                                    <small>Profession</small>
-                                </div>
+                </div>
+                <div class="testimonial-item bg-light rounded p-3">
+                    <div class="bg-white border rounded p-4">
+                        <p>Expédier mes colis n’a jamais été aussi simple ! J’ai trouvé un conducteur en quelques minutes et suivi mon envoi en toute sérénité.</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="<?php echo ROOT ?>/assets/img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                            <div class="ps-3">
+                                <h6 class="fw-bold mb-1">Fatima El Idrissi</h6>
+                                <small>Commerçante</small>
                             </div>
                         </div>
                     </div>
-                    <div class="testimonial-item bg-light rounded p-3">
-                        <div class="bg-white border rounded p-4">
-                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                            <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src="<?php echo ROOT ?>/assets/img/testimonial-3.jpg" style="width: 45px; height: 45px;">
-                                <div class="ps-3">
-                                    <h6 class="fw-bold mb-1">Client Name</h6>
-                                    <small>Profession</small>
-                                </div>
+                </div>
+                <div class="testimonial-item bg-light rounded p-3">
+                    <div class="bg-white border rounded p-4">
+                        <p>En tant qu’indépendant, je cherchais un moyen de réduire mes coûts de transport. EasyMatch Transport m’a offert une solution idéale !</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="<?php echo ROOT ?>/assets/img/testimonial-3.jpg" style="width: 45px; height: 45px;">
+                            <div class="ps-3">
+                                <h6 class="fw-bold mb-1">Yassine Mouline</h6>
+                                <small>Entrepreneur</small>
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -597,10 +622,10 @@
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Get In Touch</h5>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>date d'inscription</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                        <h5 class="text-white mb-4">Contactez-nous</h5>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Youcode, Safi</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+212 6 66 66 66 66</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@youcode.com</p>
                         <div class="d-flex pt-2">
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -609,15 +634,13 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link text-white-50" href="">About Us</a>
-                        <a class="btn btn-link text-white-50" href="">Contact Us</a>
-                        <a class="btn btn-link text-white-50" href="">Our Services</a>
-                        <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-                        <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+                        <h5 class="text-white mb-4">Liens rapides</h5>
+                        <a class="btn btn-link text-white-50" href="">A propos</a>
+                        <a class="btn btn-link text-white-50" href="">Nous contacter</a>
+                        <a class="btn btn-link text-white-50" href="">Notre équipe</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Photo Gallery</h5>
+                        <h5 class="text-white mb-4">Gallerie de photos</h5>
                         <div class="row g-2 pt-2">
                             <div class="col-4">
                                 <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-1.jpg" alt="">
@@ -641,10 +664,10 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Newsletter</h5>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                        <p>N'hésitez pas de nous contacter pour être informé de nos offres</p>
                         <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre email">
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Envoyer</button>
                         </div>
                     </div>
                 </div>
@@ -653,17 +676,14 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                            &copy; <a class="border-bottom" href="#">EasyMatch</a>, Tous droits réservés. 
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
+                                <a href="">Accueil</a>
+                                <a href="">a propos</a>
+                                <a href="">conducteurs</a>
+                                <a href="">nous contacter</a>
                             </div>
                         </div>
                     </div>
@@ -671,7 +691,6 @@
             </div>
         </div>
         <!-- Footer End -->
-
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

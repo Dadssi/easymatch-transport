@@ -79,7 +79,7 @@ if (in_array('admin', $middleware) && !SessionManager::isAdmin()) {
 }
 
 
-$controllerFile = __DIR__ . "/../controller/{$controllerName}.php";
+$controllerFile = __DIR__ . "/../controllers/{$controllerName}.php";
 if (file_exists($controllerFile)) {
     require_once $controllerFile;
     $controller = new $controllerName();

@@ -1,10 +1,10 @@
 <?php 
 
-session_start();
 
-require "../app/core/init.php";
 
-DEBUG ? ini_set('display_errors', 1) : ini_set('display_errors', 0);
+require __DIR__ . "../../app/core/Router.php";
 
-$app = new App;
-$app->loadController();
+
+
+
+

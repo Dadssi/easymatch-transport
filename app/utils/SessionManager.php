@@ -1,9 +1,13 @@
 <?php
-session_start(); 
+
 
 class SessionManager
 {
    
+
+    static public function startSession(){
+        session_start();
+    }
 
     static public function isAuthenticated()
     {

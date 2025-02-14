@@ -1,8 +1,6 @@
 <?php 
 
-/**
- * Main Model trait
- */
+
 Trait Model
 {
 	use Database;

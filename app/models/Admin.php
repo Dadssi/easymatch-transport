@@ -5,7 +5,7 @@ class AdminModel {
     use Model;
     
     protected $table = "users"; // Nom de la table des utilisateurs
-    protected $allowedColumns = ['id', 'name', 'email', 'password', 'role', 'created_at'];
+    protected $allowedColumns = ['id', 'first_name', 'last_name', 'email', 'password', 'role', 'created_at'];
 
     // Vérifier si un administrateur existe
     public function authenticate($email, $password) {
