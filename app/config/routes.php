@@ -3,8 +3,9 @@
 return [
 
     'GET|/driver/dashboard' => ['controller' => 'DriverController', 'action' => 'dashboard', 'middleware' => ['driver']],
-    'GET|/sender/dashboard' => ['controller' => 'SenderController', 'action' => 'dashboard', 'middleware' => ['driver']],
-    'GET|/' => ['controller' => 'UserController', 'action' => 'showsignupForm'],
+    'GET|/sender/dashboard' => ['controller' => 'SenderController', 'action' => 'dashboard', 'middleware' => ['sender']],
+    'GET|/admin/dashboard' => ['controller' => 'AdminController', 'action' => 'dashboard'],
+    'GET|/' => ['controller' => 'UserController', 'action' => 'showHome'],
     'GET|/user/register' => ['controller' => 'UserController', 'action' => 'showsignupForm'],
     'POST|/user/register' => ['controller' => 'UserController', 'action' => 'register'],
     'GET|/user/login' => ['controller' => 'UserController', 'action' => 'loginForm'],
@@ -16,11 +17,13 @@ return [
 
 
     'GET|/user/getallanouncements' => ['controller' => 'UserController', 'action' => 'getAllAnnoucements'],
+    'GET|/user/getallsenders' => ['controller' => 'SenderController', 'action' => 'getAllSenders'],
     'GET|/user/getalldrivers' => ['controller' => 'DriverController', 'action' => 'getalldrivers'],
     'GET|/user/getAllAnnoucementsCities' => ['controller' => 'UserController', 'action' => 'getAllAnnoucementsCities'],
     'GET|/user/home' => ['controller' => 'UserController', 'action' => 'servehome'],
     'GET|/user/carimage' => ['controller' => 'UserController', 'action' => 'carImage'],
     'GET|/user/vanimage' => ['controller' => 'UserController', 'action' => 'vanImage'],
+    'GET|/user/logoimage' => ['controller' => 'UserController', 'action' => 'logoImage'],
     'GET|/user/truckimage' => ['controller' => 'UserController', 'action' => 'truckImage'],
     'POST|/sender/requests' => ['controller' => 'SenderController', 'action' => 'makereq', 'middleware' => ['auth', 'sender']], 
     'GET|/sender/dashboard' => ['controller' => 'SenderController', 'action' => 'dashboard', 'middleware' => ['sender']],
@@ -37,16 +40,55 @@ return [
     'POST|/api/route' => ['controller' => 'ApiController', 'action' => 'getRoute', 'middleware' => ['auth, driver']], 
     'GET|/driver/profile' => ['controller' => 'UserController', 'action' => 'loadUser', 'middleware' => ['auth', 'driver']], 
     'GET|/sender/profile' => ['controller' => 'UserController', 'action' => 'loadUser'], 
+    'GET|/user/getAllPackages' => ['controller' => 'AdminController', 'action' => 'getAllPackages'], 
 
+       
+        'GET|/admin/stats' => [
+            'controller' => 'AdminController',
+            'action'     => 'getStats'
+           
+        ],
+       
+        'POST|/admin/announcement/delete' => [
+            'controller' => 'AdminController',
+            'action'     => 'deleteAnnouncement'
+           
+        ],
+   
+        'POST|/admin/user/delete' => [
+            'controller' => 'AdminController',
+            'action'     => 'deleteUser'
+            
+        ],
+        
+        'POST|/admin/package/delete' => [
+            'controller' => 'AdminController',
+            'action'     => 'deletePackage'
+            
+        ],
+        
+        'POST|/admin/driver/verify' => [
+            'controller' => 'AdminController',
+            'action'     => 'verifyDriver'
+            
+        ],
 
-    'GET|/admin/dashboard' => ['controller' => 'AdminController', 'action' => 'dashboard', 'middleware' => ['admin']],
-    'GET|/admin/profile' => ['controller' => 'UserController', 'action' => 'loadUser', 'middleware' => ['auth', 'admin']], 
-    'POST|/admin/ban' => ['controller' => 'AdminController', 'action' => 'banUser', 'middleware' => ['auth', 'admin']], 
-    'POST|/admin/delete' => ['controller' => 'AdminController', 'action' => 'deleteUser', 'middleware' => ['auth', 'admin']], 
-    'GET|/admin/getAllUsers' => ['controller' => 'AdminController', 'action' => 'getAllUsers', 'middleware' => ['auth', 'admin']], 
-    'GET|/admin/getAllAnouncments' => ['controller' => 'AdminController', 'action' => 'getAllAnnnouncements', 'middleware' => ['auth', 'admin']], 
-    'GET|/admin/getAllPackages' => ['controller' => 'AdminController', 'action' => 'getAllPackages', 'middleware' => ['auth', 'admin']], 
-    'GET|/admin/stats' => ['controller' => 'AdminController', 'action' => 'stats', 'middleware' => ['auth', 'admin']], 
+        'GET|/admin/users' => [
+            'controller' => 'AdminController',
+            'action'     => 'getAllUsers'
+            
+        ],
+
+        'GET|/admin/getAllPackages' => [
+            'controller' => 'AdminController',
+            'action'     => 'getAllPackages'
+            
+        ],
+        'POST|/admin/updatePackageStatus' => [
+            'controller' => 'AdminController',
+            'action'     => 'updatePackageStatus'
+            
+        ],
 
 
 ];
