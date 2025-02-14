@@ -1,13 +1,9 @@
 <?php
-
-// namespace App\Controllers;
-
-// use App\Models\User;
+namespace app\controllers;
+// use app\models\User;
 use Core\Database;
-// use Core\Controller;
-// use Core\Request;
 
-require_once __DIR__.'/../Models/User.php';
+
 
 class SignUpController 
 {

@@ -1,7 +1,8 @@
 <?php
+namespace app\core;
+use app\utils\SessionManager;
 
-require_once __DIR__ . '/../utils/SessionManager.php';
-require_once __DIR__ . '/../config/routes.php';
+use app\controllers\SignUpController;
 
 SessionManager::startSession();
 

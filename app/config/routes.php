@@ -8,10 +8,15 @@
 <?php
 
     return [
+
     // Authentication routes
     'GET|/admin/login' => ['controller' => 'Admin', 'action' => 'login', 'middleware' => ['guest']],
     'POST|/admin/login' => ['controller' => 'Admin', 'action' => 'login', 'middleware' => ['guest']],
     'POST|/admin/logout' => ['controller' => 'Admin', 'action' => 'logout', 'middleware' => ['admin']],
+    // Login
+    'GET|/signup' => ['controller' => 'UserController', 'action' => 'showsignupForm', 'middleware' => ['guest']],
+    'POST|/signup' => ['controller' => 'SignUpController', 'action' => 'registerUser', 'middleware' => ['guest']],
+
 
     // Dashboard
     'GET|/admin' => ['controller' => 'Admin', 'action' => 'index', 'middleware' => ['admin']],
