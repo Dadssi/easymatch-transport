@@ -1,167 +1,155 @@
 <?php
 
-namespace App\Controllers;
 
-use App\Utils\SessionManager;
-use App\Models\AdminModel;
-use App\Core\Controller; // Utiliser le trait avec le bon namespace
+require_once __DIR__ . '/../models/AdminModel.php';
+require_once __DIR__ . '/../models/PackageModel.php';
 
-class Admin {
-    use Controller;
-
+class AdminController {
     private $adminModel;
+    private $packageModel;
 
-    public function __construct() {
-        // Vérifier si l'admin est connecté sauf pour la page login
-        // if ($_GET['url'] != 'admin/login') {
-            $this->checkAdminAuth();
-        // }
-        $this->adminModel = new AdminModel();
+    public function __construct($db) {
+        $this->adminModel = new AdminModel($db);
+        $this->packageModel = new PackageModel($db);
     }
 
-    // 🔒 Vérification authentification admin
-    private function checkAdminAuth() {
-        // if (!SessionManager::isAdmin()) {
-        //     header("Location: " . ROOT . "/admin/login");
-        //     exit();
-        // }
-        return true;
-    }
-
-    // 📌 Page d'accueil de l'admin
-    public function index() {
-        $data = [
-            'users' => $this->adminModel->getUsers(),
-            'announcements' => $this->adminModel->getDriverAnnouncements(),
-            'packages' => $this->adminModel->getPackages(),
-            'logs' => $this->adminModel->getLogs()
-        ];
-        if(isset($_GET['json'])) {
-            $this->jsonResponse($data);
-        }
-        $this->view('admin', $data);
-    }
-
-    // 🔑 Connexion de l'admin
-    public function login() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            $admin = $this->adminModel->authenticate($email, $password);
-
-            if ($admin) {
-                // Utilisation de SessionManager pour définir les variables de session
-                SessionManager::set('user_name', $admin->first_name . ' ' . $admin->last_name);
-                SessionManager::set('role', 'admin');
-                SessionManager::set('logged_in', true);
-                SessionManager::set('user_id', $admin->id);
-                SessionManager::regenerate(); // Sécurité : régénération de l'ID de session
-
-                if(isset($_GET['json'])) {
-                    $this->jsonResponse(['success' => true]);
-                }
-                header("Location: " . ROOT . "/admin");
-                exit();
-            } else {
-                if(isset($_GET['json'])) {
-                    $this->jsonResponse(['error' => 'Identifiants incorrects'], 401);
-                }
-                $this->view('admin/login', ['error' => 'Identifiants incorrects']);
-            }
-        } else {
-            $this->view('admin/login');
-        }
-    }
-
-    // 🚪 Déconnexion
-    public function logout() {
-        session_destroy();
-        if(isset($_GET['json'])) {
-            $this->jsonResponse(['success' => true]);
-        }
-        header("Location: " . ROOT . "/admin/login");
+    
+    private function jsonResponse($data, $status = 200) {
+        http_response_code($status);
+        header('Content-Type: application/json');
+        echo json_encode($data);
         exit();
     }
 
-    // 👥 Gestion des utilisateurs
-    public function users() {
-        $data = [
-            'users' => $this->adminModel->getUsers()
-        ];
-        if(isset($_GET['json'])) {
-            $this->jsonResponse($data);
+    
+    public function deleteAnnouncement() {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!$input || !isset($input['announcement_id'])) {
+            $this->jsonResponse(['error' => 'Invalid input'], 400);
         }
-        $this->view('admin/users', $data);
-    }
-
-    // ✅ Validation/Suspension utilisateur
-    public function updateUserStatus($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $is_banned = $_POST['is_banned'] ?? false;
-            $result = $this->adminModel->updateUserStatus($id, $is_banned);
-            if(isset($_GET['json'])) {
-                $this->jsonResponse(['success' => $result]);
+        $announcement_id = $input['announcement_id'];
+        try {
+            $result = $this->adminModel->deleteAnnouncement($announcement_id);
+            if ($result) {
+                $this->jsonResponse(['message' => 'Announcement deleted successfully']);
+            } else {
+                $this->jsonResponse(['error' => 'Announcement deletion failed'], 500);
             }
-            header("Location: " . ROOT . "/admin/users");
-            exit();
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
         }
     }
 
-    // ✅ Vérification utilisateur
-    public function verifyUser($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $result = $this->adminModel->verifyUser($id);
-            if(isset($_GET['json'])) {
-                $this->jsonResponse(['success' => $result]);
+  
+    public function deleteUser() {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!$input || !isset($input['user_id'])) {
+            $this->jsonResponse(['error' => 'Invalid input'], 400);
+        }
+        $user_id = $input['user_id'];
+        try {
+            $result = $this->adminModel->deleteUser($user_id);
+            if ($result) {
+                $this->jsonResponse(['message' => 'User deleted successfully']);
+            } else {
+                $this->jsonResponse(['error' => 'User deletion failed'], 500);
             }
-            header("Location: " . ROOT . "/admin/users");
-            exit();
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
         }
     }
 
-    // 📢 Gestion des annonces
-    public function announcements() {
-        $data = [
-            'announcements' => $this->adminModel->getDriverAnnouncements()
-        ];
-        if(isset($_GET['json'])) {
-            $this->jsonResponse($data);
+    // Delete a package
+    public function deletePackage() {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!$input || !isset($input['package_id'])) {
+            $this->jsonResponse(['error' => 'Invalid input'], 400);
         }
-        $this->view('admin/announcements', $data);
-    }
-
-    // ❌ Suppression d'une annonce
-    public function deleteAnnouncement($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $result = $this->adminModel->deleteAnnouncement($id);
-            if(isset($_GET['json'])) {
-                $this->jsonResponse(['success' => $result]);
+        $package_id = $input['package_id'];
+        try {
+            $result = $this->adminModel->deletePackage($package_id);
+            if ($result) {
+                $this->jsonResponse(['message' => 'Package deleted successfully']);
+            } else {
+                $this->jsonResponse(['error' => 'Package deletion failed'], 500);
             }
-            header("Location: " . ROOT . "/admin/announcements");
-            exit();
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
         }
     }
 
-    // 📦 Gestion des colis
-    public function packages() {
-        $data = [
-            'packages' => $this->adminModel->getPackages()
-        ];
-        if(isset($_GET['json'])) {
-            $this->jsonResponse($data);
+    // Get overall detailed stats for users, packages, and announcements
+    public function getStats() {
+        try {
+            $stats = $this->adminModel->getStats();
+            $this->jsonResponse(['stats' => $stats]);
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
         }
-        $this->view('admin/packages', $data);
     }
 
-    // 📝 Logs système
-    public function logs() {
-        $data = [
-            'logs' => $this->adminModel->getLogs()
-        ];
-        if(isset($_GET['json'])) {
-            $this->jsonResponse($data);
+
+    public function getAllUsers() {
+        try {
+            $users = $this->adminModel->getAllUsers();
+            $this->jsonResponse(['users' => $users]);
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
         }
-        $this->view('admin/logs', $data);
     }
+
+
+    public function getAllPackages() {
+        try {
+            $packages = $this->packageModel->getAllPackages();
+            $this->jsonResponse(['packages' => $packages]);
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+
+    
+    public function verifyDriver() {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!$input || !isset($input['driver_id'])) {
+            $this->jsonResponse(['error' => 'Invalid input'], 400);
+        }
+        $driver_id = $input['driver_id'];
+        try {
+            $result = $this->adminModel->verifyDriver($driver_id);
+            if ($result) {
+                $this->jsonResponse(['message' => 'Driver verified successfully']);
+            } else {
+                $this->jsonResponse(['error' => 'Driver verification failed'], 500);
+            }
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function updatePackageStatus(){
+
+        $input = json_decode(file_get_contents('php://input'), true);
+        $request_id = $input['request_id'] ?? null;
+        $status = $input['status'] ?? null;
+        try {
+            $result = $this->packageModel->updatePackageStatus($request_id, $status);
+            if ($result) {
+                $this->jsonResponse(['message' => 'Package status updated successfully']);
+            } else {
+                $this->jsonResponse(['error' => 'Failed to update package status'], 500);
+            }
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function dashboard(){
+        require __DIR__ . '/../views/adminDashboard.html';
+    }
+
+
 }
