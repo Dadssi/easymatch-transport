@@ -39,6 +39,11 @@ class Sender extends User
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getAllSenders() {
+        $stmt = $this->db->prepare("SELECT user_id, first_name, last_name, email, isverified FROM users WHERE role = 'sender'");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     
 }
