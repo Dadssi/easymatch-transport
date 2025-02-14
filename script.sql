@@ -8,6 +8,20 @@ CREATE DATABASE  easymatch;
 -- ========================================
 CREATE TYPE user_role AS ENUM ('sender', 'driver', 'admin');
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,  -- Mot de passe haché
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    birthday DATE NOT NULL,
+    role user_role NOT NULL,
+    vehicle_category_id INT REFERENCES vehicle_categories(id),
+    is_verified BOOLEAN DEFAULT FALSE, -- Badge "Vérifié"
+    is_banned BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 -- ========================================
  -- 2- CRÉATION DE LA TABLE vehicle_categories
 -- ========================================
@@ -53,7 +67,7 @@ CREATE TABLE driver_announcements (
 -- ========================================
 CREATE TABLE announcement_stops (
     id SERIAL PRIMARY KEY,
-    announcement_id INT REFERENCES announcements(id) ON DELETE CASCADE,
+    announcement_id INT REFERENCES driver_announcements(id) ON DELETE CASCADE,
     stop_order INT NOT NULL, -- Ordre des étapes (1 = première ville intermédiaire, 2 = deuxième...)
     city VARCHAR(100) NOT NULL
 );
@@ -82,7 +96,7 @@ CREATE TABLE package_types (
 -- 8- ANNOUNCEMENT ALLOWED PACKAGES TYPES =
 -- ========================================
 CREATE TABLE announcement_allowed_packages (
-    announcement_id INT REFERENCES announcements(id) ON DELETE CASCADE,
+    announcement_id INT REFERENCES driver_announcements(id) ON DELETE CASCADE,
     package_type_id INT REFERENCES package_types(id) ON DELETE CASCADE,
     PRIMARY KEY (announcement_id, package_type_id) -- Évite les doublons
 );

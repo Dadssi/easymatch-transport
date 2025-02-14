@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>EasyMatch - Envoi de Colis</title>
-  <meta content="transport de colis partout au Maroc" name="keywords">
-  <meta content="La première plateforme d'envoi de colis au Maroc" name="description">
+  <title>EasyMatch - Transport</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="transport de colis partout au Maroc" name="keywords">
+  <meta content="la prmière plateforme d'envoi des colis au Maroc" name="description">
 
   <!-- Favicon -->
   <link href="<?php echo ROOT ?>/assets/img/favicon.ico" rel="icon">
@@ -31,47 +31,14 @@
   <!-- Template Stylesheet -->
   <link href="<?php echo ROOT ?>/assets/css/style.css" rel="stylesheet">
 
-  <!-- Leaflet CSS (pour la carte) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <style>
-    #map {
-      height: 500px;
-      width: 100%;
-      margin: 20px 0;
-    }
+  <!--  bibliothèque Flatpickr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    .route-inputs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
 
-    select {
-      padding: 8px;
-      min-width: 200px;
-    }
 
-    #waypoints {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 10px 0;
-    }
 
-    button {
-      padding: 8px 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
 </head>
 
 <body>
@@ -90,7 +57,7 @@
       <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
         <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
           <div class="icon p-2 me-2">
-            <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/icon-deal.png" alt="Icon"
+            <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/logo-easymatch.png" alt="Icon"
               style="width: 30px; height: 30px;">
           </div>
           <h1 class="m-0 text-primary">EasyMatch</h1>
@@ -100,46 +67,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <div class="navbar-nav ms-auto">
-            <a href="index.html" class="nav-item nav-link active">Accueil</a>
-            <a href="about.html" class="nav-item nav-link">À propos</a>
-            <div class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
-              <div class="dropdown-menu rounded-0 m-0">
-                <a href="service-list.html" class="dropdown-item">Liste des services</a>
-                <a href="service-type.html" class="dropdown-item">Types de services</a>
-              </div>
-            </div>
-            <a href="contact.html" class="nav-item nav-link">Contact</a>
+            <a href="#" class="nav-item nav-link active">Accueil</a>
+            <a href="#about-section" class="nav-item nav-link">A propos</a>
+            <a href="#conducteurs-certifies" class="nav-item nav-link">Conducteurs</a>
+            <a href="contact.html" class="nav-item nav-link">nous contacter</a>
           </div>
-          <a href="<?= ROOT . "/logout" ?>" class="btn btn-danger px-3 d-none d-lg-flex">Déconnexion</a>
+          <a href="" class="btn btn-primary px-3 d-none d-lg-flex">Se Deconnecter</a>
         </div>
       </nav>
     </div>
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    <div class="container-fluid header bg-white p-0">
+    <div class="container-fluid header bg-white p-0 mt-4">
       <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
         <div class="col-md-6 p-5 mt-lg-5">
-          <h1 class="display-5 animated fadeIn mb-4">Envoyez vos <span class="text-primary">colis en toute
-              simplicité</span> partout au Maroc</h1>
-          <p class="animated fadeIn mb-4 pb-2">EasyMatch vous permet d'envoyer vos colis rapidement et en toute sécurité
-            entre deux villes. Profitez de notre service fiable et économique.</p>
-          <a href="" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Commencez maintenant</a>
+          <h1 class="display-5 animated fadeIn mb-4">Trouvez <span class="text-primary">le transport idéal</span> pour
+            vos colis</h1>
+          <p class="animated fadeIn mb-4 pb-2">Facilitez l’envoi de vos marchandises en toute simplicité. Trouvez un
+            conducteur sur votre itinéraire et expédiez vos colis en toute sécurité. Réduisez les coûts tout en
+            optimisant l’espace disponible des véhicules.</p>
+          <a href="" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Se lancer</a>
         </div>
         <div class="col-md-6 animated fadeIn">
           <div class="owl-carousel header-carousel">
             <div class="owl-carousel-item">
-              <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/carousel-1.jpg" alt="Envoi de colis">
+              <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/carousel-1.jpg" alt="">
             </div>
             <div class="owl-carousel-item">
-              <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/carousel-2.jpg" alt="Livraison rapide">
-            </div>
-            <div class="owl-carousel-item">
-              <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/carousel-3.jpg" alt="Envoi de colis">
-            </div>
-            <div class="owl-carousel-item">
-              <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/carousel-4.jpg" alt="Livraison rapide">
+              <img class="img-fluid" src="<?php echo ROOT ?>/assets/img/carousel-2.jpg" alt="">
             </div>
           </div>
         </div>
@@ -147,47 +103,43 @@
     </div>
     <!-- Header End -->
 
+
     <!-- Search Start -->
     <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
       <div class="container">
         <div class="row g-2">
           <div class="col-md-10">
-            
-            <div id="itineraire-maroc" class="container mt-4">
-              <h1 class="text-center mb-4">Itineraire au Maroc</h1>
-              <div class="form-row mb-3">
-                <div class="col">
-                  <select id="start" class="form-control">
-                    <option value="">Point de depart</option>
-                  </select>
-                </div>
-                <div class="col">
-                  <select id="end" class="form-control">
-                    <option value="">Point d'arrivee</option>
-                  </select>
-                </div>
+            <div class="row g-2">
+              <div class="col-md-4">
+                <input type="text" id="datePicker" class="form-control border-0 py-3" placeholder="Select Date">
               </div>
-              <div id="waypoints" class="form-row mb-3"></div>
-              <button class="btn btn-primary mb-3" onclick="addWaypoint()">Ajouter une ville intermediaire</button>
-              <button class="btn btn-success mb-3" onclick="displayRoute()">Afficher l'itineraire</button>
+              <div class="col-md-4">
+                <select class="form-select border-0 py-3" id="start">
+                  <option value="">Ville de départ</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select class="form-select border-0 py-3" id="end">
+                  <option value="">Ville d'arrivée</option>
+                </select>
+              </div>
             </div>
-
           </div>
           <div class="col-md-2">
-            <button class="btn btn-dark border-0 w-100 py-3" onclick="displayRoute()">Rechercher</button>
+            <button class="btn btn-dark border-0 w-100 py-3" onclick="displayRoute()">Search</button>
           </div>
         </div>
       </div>
-      
     </div>
-    <div id="map-itineraire" style="height: 500px; width: 100%; margin: 20px 0;"></div>
- 
-
     <!-- Search End -->
 
-    <!-- Dashboard Section End -->
+    <!-- Map start -->
+    <div class="container" id="map-container">
+      <div id="waypoints"></div>
+      <div id="map"></div>
+    </div>
+    <!-- Map end -->
 
-    <!-- Section pour l'itinéraire au Maroc -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -195,9 +147,9 @@
         <div class="row g-5">
           <div class="col-lg-3 col-md-6">
             <h5 class="text-white mb-4">Contactez-nous</h5>
-            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Rue, Casablanca, Maroc</p>
-            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+212 123 456 789</p>
-            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@easymatch.com</p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Youcode, Safi</p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+212 6 66 66 66 66</p>
+            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@youcode.com</p>
             <div class="d-flex pt-2">
               <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
               <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -207,48 +159,40 @@
           </div>
           <div class="col-lg-3 col-md-6">
             <h5 class="text-white mb-4">Liens rapides</h5>
-            <a class="btn btn-link text-white-50" href="">À propos</a>
-            <a class="btn btn-link text-white-50" href="">Contact</a>
-            <a class="btn btn-link text-white-50" href="">Nos services</a>
-            <a class="btn btn-link text-white-50" href="">Politique de confidentialité</a>
-            <a class="btn btn-link text-white-50" href="">Conditions générales</a>
+            <a class="btn btn-link text-white-50" href="">A propos</a>
+            <a class="btn btn-link text-white-50" href="">Nous contacter</a>
+            <a class="btn btn-link text-white-50" href="">Notre équipe</a>
           </div>
           <div class="col-lg-3 col-md-6">
-            <h5 class="text-white mb-4">Galerie</h5>
+            <h5 class="text-white mb-4">Gallerie de photos</h5>
             <div class="row g-2 pt-2">
               <div class="col-4">
-                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/property-1.jpg"
-                  alt="Colis 1">
+                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-1.jpg" alt="">
               </div>
               <div class="col-4">
-                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/property-2.jpg"
-                  alt="Colis 2">
+                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-2.jpg" alt="">
               </div>
               <div class="col-4">
-                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/property-3.jpg"
-                  alt="Colis 3">
+                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-3.jpg" alt="">
               </div>
               <div class="col-4">
-                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/property-4.jpg"
-                  alt="Colis 4">
+                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-4.jpg" alt="">
               </div>
               <div class="col-4">
-                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/property-5.jpg"
-                  alt="Colis 5">
+                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-5.jpg" alt="">
               </div>
               <div class="col-4">
-                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/property-6.jpg"
-                  alt="Colis 6">
+                <img class="img-fluid rounded bg-light p-1" src="<?php echo ROOT ?>/assets/img/driver-6.jpg" alt="">
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6">
             <h5 class="text-white mb-4">Newsletter</h5>
-            <p>Abonnez-vous pour recevoir les dernières actualités et offres.</p>
+            <p>N'hésitez pas de nous contacter pour être informé de nos offres</p>
             <div class="position-relative mx-auto" style="max-width: 400px;">
               <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre email">
               <button type="button"
-                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">S'abonner</button>
+                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Envoyer</button>
             </div>
           </div>
         </div>
@@ -262,9 +206,9 @@
             <div class="col-md-6 text-center text-md-end">
               <div class="footer-menu">
                 <a href="">Accueil</a>
-                <a href="">Cookies</a>
-                <a href="">Aide</a>
-                <a href="">FAQ</a>
+                <a href="">a propos</a>
+                <a href="">conducteurs</a>
+                <a href="">nous contacter</a>
               </div>
             </div>
           </div>
@@ -285,97 +229,24 @@
   <script src="<?php echo ROOT ?>/assets/lib/waypoints/waypoints.min.js"></script>
   <script src="<?php echo ROOT ?>/assets/lib/owlcarousel/owl.carousel.min.js"></script>
 
-  <!-- Leaflet JavaScript (pour la carte) -->
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-  <!-- Script pour la carte -->
-  <script>
-    // Initialisation de la carte
-    var map = L.map('map').setView([31.7917, -7.0926], 6); // Centre sur le Maroc
-
-    // Ajout d'une couche de tuiles (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Variables pour stocker les marqueurs de départ et d'arrivée
-    var departureMarker, arrivalMarker;
-
-    // Gestion des clics sur la carte
-    map.on('click', function (e) {
-      var city = prompt("Entrez le nom de la ville :");
-      if (city) {
-        if (!departureMarker) {
-          departureMarker = L.marker(e.latlng).addTo(map)
-            .bindPopup('Départ : ' + city).openPopup();
-          document.getElementById('departureCity').value = city;
-        } else if (!arrivalMarker) {
-          arrivalMarker = L.marker(e.latlng).addTo(map)
-            .bindPopup('Arrivée : ' + city).openPopup();
-          document.getElementById('arrivalCity').value = city;
-        } else {
-          alert("Vous avez déjà sélectionné les villes de départ et d'arrivée.");
-        }
-      }
-    });
-  </script>
-
-  <!-- Script pour la gestion du formulaire -->
-  <script>
-    document.getElementById('addParcelForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var parcelDescription = document.getElementById('parcelDescription').value;
-      var departureCity = document.getElementById('departureCity').value;
-      var arrivalCity = document.getElementById('arrivalCity').value;
-
-      if (!parcelDescription || !departureCity || !arrivalCity) {
-        alert("Veuillez remplir tous les champs.");
-        return;
-      }
-
-      // Envoyer les données au serveur (exemple avec Fetch API)
-      fetch('<?php echo ROOT ?>/addParcel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          description: parcelDescription,
-          departure: departureCity,
-          arrival: arrivalCity
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert("Colis ajouté avec succès !");
-            // Réinitialiser le formulaire
-            document.getElementById('addParcelForm').reset();
-            if (departureMarker) departureMarker.remove();
-            if (arrivalMarker) arrivalMarker.remove();
-            departureMarker = null;
-            arrivalMarker = null;
-          } else {
-            alert("Erreur lors de l'ajout du colis.");
-          }
-        })
-        .catch(error => console.error('Erreur :', error));
-    });
-  </script>
 
   <!-- Template Javascript -->
   <script src="<?php echo ROOT ?>/assets/js/main.js"></script>
 
-  <!-- Script pour la section Itinéraire au Maroc -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <!-- ------------------------------------------------------------------------ -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    let mapItineraire;
+    let map;
     let routeLayer;
     let cities = [];
     const OPENROUTE_API_KEY = '5b3ce3597851110001cf6248a7064ad297da4fb69da7048a587efa99';
-    const JSON_PATH = '<?php echo ROOT . "/includes/cities.json" ?>';
-    console.log(JSON_PATH);
+    const JSON_PATH = './includes/cities.json'; // Chemin vers votre fichier JSON
 
+    // Fonction pour charger les villes depuis le fichier JSON
     async function loadCities() {
       try {
         const response = await fetch(JSON_PATH);
@@ -402,7 +273,7 @@
 
     function populateSelects() {
       const uniqueCities = getUniqueCities();
-      const selects = document.querySelectorAll('#itineraire-maroc select');
+      const selects = document.querySelectorAll('select');
       selects.forEach(select => {
         if (select.options.length <= 1) {
           uniqueCities.forEach(city => {
@@ -415,17 +286,16 @@
       });
     }
 
-    function initMapItineraire() {
-      mapItineraire = L.map('map-itineraire').setView([31.7917, -7.0926], 6); // Centre du Maroc
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(mapItineraire);
+    function initMap() {
+      map = L.map('map').setView([31.7917, -7.0926], 6); // Centre du Maroc
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'copy; Esri, HERE, Garmin, FAO, NOAA'
+      }).addTo(map);
     }
 
     function addWaypoint() {
       const waypointsDiv = document.getElementById('waypoints');
       const select = document.createElement('select');
-      select.className = 'form-control col';
       select.innerHTML = '<option value="">Ville intermediaire</option>';
       getUniqueCities().forEach(city => {
         const option = document.createElement('option');
@@ -464,12 +334,12 @@
       try {
         // Suppression des anciens elements
         if (routeLayer) {
-          mapItineraire.removeLayer(routeLayer);
+          map.removeLayer(routeLayer);
         }
 
-        mapItineraire.eachLayer(layer => {
+        map.eachLayer(layer => {
           if (layer instanceof L.Marker) {
-            mapItineraire.removeLayer(layer);
+            map.removeLayer(layer);
           }
         });
 
@@ -497,13 +367,13 @@
 
         // Ajouter des marqueurs
         coordinates.forEach(coord => {
-          L.marker([coord[1], coord[0]]).addTo(mapItineraire);
+          L.marker([coord[1], coord[0]]).addTo(map);
         });
 
         // Dessiner la route
         const route = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
-        routeLayer = L.polyline(route, { color: 'blue', weight: 5 }).addTo(mapItineraire);
-        mapItineraire.fitBounds(routeLayer.getBounds());
+        routeLayer = L.polyline(route, { color: 'blue', weight: 5 }).addTo(map);
+        map.fitBounds(routeLayer.getBounds());
 
       } catch (error) {
         console.error("Erreur lors du calcul de l'itineraire :", error);
@@ -511,10 +381,15 @@
       }
     }
 
+
+
     // Initialisation
-    initMapItineraire();
+    initMap();
     loadCities();
+
   </script>
+  <!-- ------------------------------------------------------------------------ -->
+
 </body>
 
 </html>

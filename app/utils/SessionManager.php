@@ -1,13 +1,11 @@
 <?php
+namespace App\Utils;
 
+session_start(); 
 
 class SessionManager
 {
-   
 
-    static public function startSession(){
-        session_start();
-    }
 
     static public function isAuthenticated()
     {
@@ -21,7 +19,7 @@ class SessionManager
     static function isConducteur(){
         return isset($_SESSION['user_name']) && $_SESSION['role'] === 'conducteur';
     }
-    
+
     static function isExpediteur(){
         return isset($_SESSION['user_name']) && $_SESSION['role'] === 'expediteur';
     } 
@@ -30,7 +28,7 @@ class SessionManager
         $_SESSION[$key] = $value;
     }
 
-         
+
 // Get session value safely
 public static function get(string $key) {
     return $_SESSION[$key] ?? null;
@@ -42,9 +40,5 @@ public static function regenerate() {
     }
 }
 
-   
+
 }
-
-
-
-  
