@@ -2,13 +2,17 @@
 
 Trait Database
 {
-
 	private function connect()
-	{
-		$string = "mysql:hostname=".DBHOST.";dbname=".DBNAME;
-		$con = new PDO($string,DBUSER,DBPASS);
-		return $con;
-	}
+    {
+        $string = "pgsql:host=".DBHOST.";dbname=".DBNAME;
+        try {
+            $con = new PDO($string, DBUSER, DBPASS);
+            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $con;
+        } catch(PDOException $e) {
+            die("Erreur de connexion : " . $e->getMessage());
+        }
+    }
 
 	public function query($query, $data = [])
 	{
@@ -25,13 +29,11 @@ Trait Database
 				return $result;
 			}
 		}
-
 		return false;
 	}
 
 	public function get_row($query, $data = [])
 	{
-
 		$con = $this->connect();
 		$stm = $con->prepare($query);
 
