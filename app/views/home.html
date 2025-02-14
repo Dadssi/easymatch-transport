@@ -45,6 +45,22 @@
     </style>
 </head>
 <body class="bg-gray-50">
+
+    <div class="bg-transparent">
+        <nav class="bg-white shadow-md py-2 px-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="/user/logoimage" alt="Icon" class="w-8 h-8">
+                <h1 class="text-xl font-bold text-primary">EasyMatch</h1>
+            </a>
+            
+            <div class="hidden lg:flex space-x-6 items-center" id="navbar-menu">
+                <a href="/user/home" class="text-gray-700 hover:text-primary font-medium">Home</a>
+                <a href="/sender/dashboard" class="text-gray-700 hover:text-primary font-medium">Dashboard</a>
+                <a href="/logout" class="text-gray-700 hover:text-primary font-medium">Logout</a>
+            </div>
+        </nav>
+        
+    </div>
     <!-- Hero Section -->
     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto px-4 py-16">
@@ -90,7 +106,7 @@
         </div>
     </div>
 
-    <!-- Announcements Section -->
+    
     <div class="container mx-auto px-4 py-12">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold text-gray-800">
@@ -100,15 +116,15 @@
         </div>
 
         <div id="announcements-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Announcements will be loaded here -->
+           
         </div>
     </div>
 
-      <!-- Demand Modal (Hidden by default) -->
+      
 <div id="demandModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <!-- Modal content -->
+   
     <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 relative">
-      <!-- Close button -->
+     
       <button 
         class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" 
         onclick="closeDemandModal()"
@@ -118,12 +134,12 @@
   
       <h2 class="text-xl font-bold mb-4">Make a Demand</h2>
   
-      <!-- Form -->
+      
       <form id="demandForm" class="space-y-4">
-        <!-- Hidden input to store the announcement ID -->
+       
         <input type="hidden" id="announcement_id" />
   
-        <!-- Package Size -->
+        
         <div>
           <label for="package_size" class="block text-sm font-medium text-gray-700">
             Package Size
