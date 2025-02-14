@@ -45,7 +45,7 @@ class PackageModel {
         $package = $stmt->fetch(PDO::FETCH_ASSOC);
     
         if ($package) {
-            // Map request_id to id since that's how it's defined in the class
+            
             $this->id = $package['request_id'];
             
             // Set all other attributes
@@ -88,6 +88,18 @@ class PackageModel {
         $sql = "SELECT request_id FROM sender_requests";
         $stmt = $db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllPackages() {
+        $sql = "SELECT * FROM sender_requests";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updatePackageStatus($id, $status) {
+        $sql = "UPDATE sender_requests SET status = :status WHERE request_id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':status' => $status, ':id' => $id]);
     }
 }
 ?>
