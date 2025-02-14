@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN (used as our jsCharts library) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Optional custom animation */
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8 animate-pulse">Admin Dashboard</h1>
+    <div id="stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 fade-in">
+        <h2 class="text-xl font-semibold mb-4">User Breakdown</h2>
+        <canvas id="userChart" width="400" height="400"></canvas>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 fade-in">
+        <h2 class="text-xl font-semibold mb-4">Package Status</h2>
+        <canvas id="packageChart" width="400" height="400"></canvas>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 fade-in">
+        <h2 class="text-xl font-semibold mb-4">Announcements by Vehicle</h2>
+        <canvas id="announcementChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+
+    
+    <div class="mt-12">
+      <h2 class="text-3xl font-bold mb-4">User Management</h2>
+      <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+        <table class="min-w-full">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-4 py-2">ID</th>
+              <th class="px-4 py-2">Name</th>
+              <th class="px-4 py-2">Email</th>
+              <th class="px-4 py-2">Role</th>
+              <th class="px-4 py-2">Verified Status</th> <!-- New Column -->
+              <th class="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody" class="divide-y divide-gray-200">
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+        <div class="mt-12">
+            <h2 class="text-3xl font-bold mb-4">Package Management</h2>
+            <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+              <table class="min-w-full">
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Sender</th>
+                    <th class="px-4 py-2">Driver</th>
+                    <th class="px-4 py-2">PickUp</th>
+                    <th class="px-4 py-2">DropOff</th>
+                  </tr>
+                </thead>
+                <tbody id="PackageTableBody" class="divide-y divide-gray-200">
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+  </div>
+
+  <script>
+
+async function fetchData(url) {
+    const response = await fetch(url);
+    return response.json();
+}
+
+async function updatePackageStatus(requestId, newStatus) {
+    await fetch('/admin/updatePackageStatus', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ request_id: requestId, status: newStatus })
+    });
+    populatePackageTable();
+}
+
+async function deletePackage(requestId) {
+    await fetch('/admin/deletePackage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ request_id: requestId })
+    });
+    populatePackageTable();
+}
+
+async function populatePackageTable() {
+    const packageData = await fetchData('/admin/getAllPackages');
+    const announcementData = await fetchData('/user/getallanouncements');
+    const driversData = await fetchData('/user/getalldrivers');
+    const sendersData = await fetchData('/user/getallsenders');
+
+    const packages = packageData.packages;
+    const announcements = Object.fromEntries(announcementData.map(a => [a.announcement_id, a.driver_id]));
+    const drivers = Object.fromEntries(driversData.map(d => [d.user_id, `${d.first_name} ${d.last_name}`]));
+    const senders = Object.fromEntries(sendersData.map(s => [s.user_id, `${s.first_name} ${s.last_name}`]));
+
+    const tableBody = document.getElementById("PackageTableBody");
+    tableBody.innerHTML = "";
+
+    packages.forEach(pkg => {
+        const driverId = announcements[pkg.announcement_id] || "Unknown";
+        const driverName = drivers[driverId] || "Unknown";
+        const senderName = senders[pkg.sender_id] || "Unknown";
+        
+        const statusOptions = ['pending', 'accepted', 'rejected', 'completed', 'cancelled']
+            .map(status => `<option value="${status}" ${pkg.status === status ? 'selected' : ''}>${status}</option>`) 
+            .join('');
+
+        const row = `<tr>
+            <td class="px-4 py-2">${pkg.request_id}</td>
+            <td class="px-4 py-2">${senderName}</td>
+            <td class="px-4 py-2">${driverName}</td>
+            <td class="px-4 py-2">${pkg.pickup_city}</td>
+            <td class="px-4 py-2">${pkg.dropoff_city}</td>
+            <td class="px-4 py-2">
+                <select onchange="updatePackageStatus(${pkg.request_id}, this.value)">
+                    ${statusOptions}
+                </select>
+            </td>
+            <td class="px-4 py-2">
+                <button onclick="deletePackage(${pkg.request_id})" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+            </td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+populatePackageTable();
+setInterval(populatePackageTable, 5000);
+
+
+
+
+   
+    function fetchUsers() {
+      fetch('/admin/users')
+        .then(response => response.json())
+        .then(data => {
+          
+          const users = data.users;
+          const tbody = document.getElementById('userTableBody');
+          tbody.innerHTML = '';
+          users.forEach(user => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-gray-50 transition-colors duration-200';
+            tr.innerHTML = `
+              <td class="px-4 py-2">${user.user_id}</td>
+              <td class="px-4 py-2">${user.first_name} ${user.last_name}</td>
+              <td class="px-4 py-2">${user.email}</td>
+              <td class="px-4 py-2">${user.role}</td>
+              
+<td class="px-4 py-2">
+  ${user.role === 'driver' ? 
+    (user.isverified ? '✅ Verified' : '❌ Unverified') :  <!-- Updated field name -->
+    'N/A'}
+</td>
+<td class="px-4 py-2">
+  ${user.role === 'driver' && !user.isverified ? `  <!-- Updated field name -->
+    <button onclick="verifyDriver(${user.user_id})" 
+            class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition-colors duration-200">
+      Verify
+    </button>
+  ` : ''}
+  <button onclick="deleteUser(${user.user_id})" 
+          class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-200 ml-2">
+    Delete
+  </button>
+</td>
+              
+            `;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching users:', error);
+        });
+    }
+
+    // Function to delete a user by ID
+    function deleteUser(userId) {
+      if (!confirm('Are you sure you want to delete this user?')) return;
+      fetch('/admin/user/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
+          fetchUsers();
+        } else {
+          alert(data.error || 'Failed to delete user');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+        alert('Error deleting user');
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+     
+      fetch('/admin/stats')
+        .then(response => response.json())
+        .then(data => {
+          const stats = data.stats;
+
+         
+          const verifiedDrivers = stats.users.drivers.verified;
+          const unverifiedDrivers = stats.users.drivers.total - stats.users.drivers.verified;
+          const senders = stats.users.senders.total;
+
+          const userCtx = document.getElementById('userChart').getContext('2d');
+          new Chart(userCtx, {
+            type: 'pie',
+            data: {
+              labels: ['Verified Drivers', 'Unverified Drivers', 'Senders'],
+              datasets: [{
+                data: [verifiedDrivers, unverifiedDrivers, senders],
+                backgroundColor: ['#34D399', '#F87171', '#60A5FA']
+              }]
+            },
+            options: {
+              responsive: true,
+              animation: { duration: 1500, easing: 'easeOutBounce' }
+            }
+          });
+
+          
+          const packageStatuses = stats.packages.by_status;
+          const statusLabels = Object.keys(packageStatuses);
+          const statusCounts = Object.values(packageStatuses);
+
+          const packageCtx = document.getElementById('packageChart').getContext('2d');
+          new Chart(packageCtx, {
+            type: 'bar',
+            data: {
+              labels: statusLabels,
+              datasets: [{
+                label: 'Packages',
+                data: statusCounts,
+                backgroundColor: '#FBBF24'
+              }]
+            },
+            options: {
+              responsive: true,
+              animation: { duration: 1500, easing: 'easeOutBounce' },
+              scales: { y: { beginAtZero: true } }
+            }
+          });
+
+          
+          const announcementVehicles = stats.announcements.by_vehicle_type;
+          const vehicleLabels = Object.keys(announcementVehicles);
+          const vehicleCounts = Object.values(announcementVehicles);
+
+          const announcementCtx = document.getElementById('announcementChart').getContext('2d');
+          new Chart(announcementCtx, {
+            type: 'doughnut',
+            data: {
+              labels: vehicleLabels,
+              datasets: [{
+                data: vehicleCounts,
+                backgroundColor: ['#A78BFA', '#F472B6', '#4ADE80', '#F87171']
+              }]
+            },
+            options: {
+              responsive: true,
+              animation: { duration: 1500, easing: 'easeOutBounce' }
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching stats:', error);
+        });
+
+      fetchUsers();
+    });
+
+
+    function verifyDriver(driverId) {
+  if (!confirm('Are you sure you want to verify this driver?')) return;
+  fetch('/admin/driver/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ driver_id: driverId })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      alert(data.message);
+      fetchUsers();
+    } else {
+      alert(data.error || 'Failed to verify driver');
+    }
+  })
+  .catch(error => {
+    console.error('Error verifying driver:', error);
+    alert('Error verifying driver');
+  });
+}
+  </script>
+</body>
+</html>
