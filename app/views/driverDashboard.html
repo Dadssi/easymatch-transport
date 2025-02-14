@@ -36,7 +36,11 @@
           <h2 class="text-xl font-semibold mb-2">Ajouter Véhicule</h2>
           <form id="addVehicleForm">
             <label for="vehicle_type" class="block mb-1 font-medium">Type de Véhicule</label>
-            <input type="text" id="vehicle_type" name="vehicle_type" class="w-full border border-gray-300 rounded p-2 mb-4" required>
+            <select id="vehicle_type" name="vehicle_type">
+              <option value="Truck">Camion</option>
+              <option value="car">Voiture</option>
+              <option value="Van">Moto</option>
+            </select>
             <label for="carry_size" class="block mb-1 font-medium">Taille de Transport</label>
             <input type="number" id="carry_size" name="carry_size" class="w-full border border-gray-300 rounded p-2 mb-4" required>
             <div class="flex justify-end space-x-2">
@@ -95,6 +99,27 @@
       <h2 class="text-xl font-semibold mb-2">Mes Annonces</h2>
       <div id="announcementsList">Aucune annonce chargée.</div>
     </div>
+
+    <div class="bg-white p-4 rounded shadow mt-4">
+      <h2 class="text-xl font-semibold mb-2">Colis Associés</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-4 py-2">ID Colis</th>
+              <th class="px-4 py-2">Expéditeur</th>
+              <th class="px-4 py-2">Taille</th>
+              <th class="px-4 py-2">Départ</th>
+              <th class="px-4 py-2">Destination</th>
+              <th class="px-4 py-2">Statut</th>
+              <th class="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="packagesTableBody" class="divide-y divide-gray-200"></tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -349,6 +374,10 @@
           <p><strong>Disponible Jusqu'à:</strong> ${ann.available_until}</p>
           <p><strong>Véhicule Type:</strong> ${ann.vehicle_type}</p>
           <p><strong>Villes:</strong> ${ann.cities ? ann.cities.join(', ') : 'N/A'}</p>
+            <button onclick="deleteAnnouncement(${ann.announcement_id})" 
+             class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+        Supprimer
+      </button>
         `;
         container.appendChild(div);
       });
@@ -368,7 +397,99 @@
       document.getElementById('addVehicleBtn').addEventListener('click', () => {
         document.getElementById('addVehicleModal').style.display = 'block';
       });
+
+      loadDriverPackages();
     });
+
+
+    async function loadDriverPackages() {
+  try {
+    const response = await fetch('/admin/getAllPackages', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    });
+    
+    const package_ = await response.json();
+    const packages = package_.packages;
+    renderPackages(packages);
+  } catch (error) {
+    console.error(error);
+    alert("Erreur lors du chargement des colis");
+  }
+}
+
+async function renderPackages(packages) {
+  const tbody = document.getElementById('packagesTableBody');
+  tbody.innerHTML = '';
+  
+  for (const pkg of packages) {
+    
+    const senderResponse = await fetch(`/user/getallsenders`);
+    const users = await senderResponse.json();
+    const sender = users.forEach(user => {
+      if (user.user_id === pkg.sender_id) {
+        return user;
+      }
+    });
+    console.log(sender);
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="px-4 py-2 text-center">${pkg.request_id}</td>
+      <td class="px-4 py-2 text-center">${sender.first_name} ${sender.last_name}</td>
+      <td class="px-4 py-2 text-center">${pkg.package_size} cm³</td>
+      <td class="px-4 py-2 text-center">${pkg.pickup_city}</td>
+      <td class="px-4 py-2 text-center">${pkg.dropoff_city}</td>
+      <td class="px-4 py-2 text-center">
+        <span class="px-2 py-1 rounded ${getStatusColor(pkg.status)}">${pkg.status}</span>
+      </td>
+      <td class="px-4 py-2 text-center">
+        ${pkg.status === 'pending' ? 
+          `<button onclick="updatePackageStatus(${pkg.request_id}, 'accepted')" 
+           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+            Accepter
+          </button>` : ''}
+      </td>
+    `;
+    tbody.appendChild(row);
+  }
+}
+
+function getStatusColor(status) {
+  switch(status) {
+    case 'pending': return 'bg-yellow-200';
+    case 'accepted': return 'bg-blue-200';
+    case 'in_transit': return 'bg-purple-200';
+    case 'delivered': return 'bg-green-200';
+    default: return 'bg-gray-200';
+  }
+}
+
+// Add this to the deleteAnnouncement function
+async function deleteAnnouncement(announcementId) {
+  if (confirm("Êtes-vous sûr de vouloir supprimer cette annonce?")) {
+    try {
+      const response = await fetch('/driver/deleteAnnouncement', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({announcement_id: announcementId})
+      });
+      
+      if (response.ok) {
+        loadAnnouncements();
+        loadDriverPackages(); // Refresh packages list
+        alert("Annonce supprimée avec succès!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Erreur lors de la suppression");
+    }
+  }
+}
+
+
+
+
   </script>
   
 </body>
