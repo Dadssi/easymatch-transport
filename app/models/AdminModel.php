@@ -1,74 +1,133 @@
 <?php
 
 
-namespace App\Models;
-use app\core\Model;
-
-// namespace Models\AdminModel;
-
-
 class AdminModel {
-    
-    use Model;
+    private $db;
 
-    protected $table = "users";
-    protected $allowedColumns = [
-        'id', 'first_name', 'last_name', 'email', 'password', 
-        'phone', 'birthday', 'role', 'vehicle_category_id',
-        'is_verified', 'is_banned', 'created_at'
-    ];
-
-    // ✅ Vérification des identifiants
-    public function authenticate($email, $password) {
-        $admin = $this->first(['email' => $email, 'role' => 'admin']);
-        return ($admin && password_verify($password, $admin->password)) ? $admin : false;
+    public function __construct($db) {
+        $this->db = $db;
     }
 
-    // 👥 Récupérer tous les utilisateurs
-    public function getUsers() {
-        return $this->findAll();
+    public function deleteAnnouncement($announcement_id) {
+        try {
+            $this->db->beginTransaction();
+            
+            
+            $stmt = $this->db->prepare("DELETE FROM announcement_cities WHERE announcement_id = :id");
+            $stmt->execute([':id' => $announcement_id]);
+            
+            
+            $stmt2 = $this->db->prepare("DELETE FROM driver_announcements WHERE announcement_id = :id");
+            $stmt2->execute([':id' => $announcement_id]);
+            
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            throw new Exception("Failed to delete announcement: " . $e->getMessage());
+        }
     }
 
-    // 🎟️ Valider/Suspendre un utilisateur
-    public function updateUserStatus($id, $is_banned) {
-        return $this->update($id, ['is_banned' => $is_banned]);
+    public function deleteUser($user_id) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM users WHERE user_id = :id");
+            return $stmt->execute([':id' => $user_id]);
+        } catch (Exception $e) {
+            throw new Exception("Failed to delete user: " . $e->getMessage());
+        }
     }
 
-    // ✅ Vérifier un utilisateur
-    public function verifyUser($id) {
-        return $this->update($id, ['is_verified' => true]);
+    public function deletePackage($package_id) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM sender_requests WHERE request_id = :id");
+            return $stmt->execute([':id' => $package_id]);
+        } catch (Exception $e) {
+            throw new Exception("Failed to delete package: " . $e->getMessage());
+        }
     }
 
-    // 📢 Gestion des annonces des conducteurs
-    public function getDriverAnnouncements() {
-        $this->table = "driver_announcements";
-        return $this->findAll();
+    public function getStats() {
+        $stats = [];
+
+        // Users stats
+        $stmt = $this->db->query("SELECT COUNT(*) as total_users FROM users");
+        $total_users = $stmt->fetch(PDO::FETCH_ASSOC)['total_users'];
+
+        $stmt = $this->db->query("SELECT COUNT(*) as total_drivers FROM users WHERE role = 'driver'");
+        $total_drivers = $stmt->fetch(PDO::FETCH_ASSOC)['total_drivers'];
+
+        $stmt = $this->db->query("SELECT COUNT(*) as verified_drivers FROM users WHERE role = 'driver' AND isverified = true");
+        $verified_drivers = $stmt->fetch(PDO::FETCH_ASSOC)['verified_drivers'];
+
+        $stmt = $this->db->query("SELECT COUNT(*) as total_senders FROM users WHERE role = 'sender'");
+        $total_senders = $stmt->fetch(PDO::FETCH_ASSOC)['total_senders'];
+
+        $users_stats = [
+            'total_users' => (int)$total_users,
+            'drivers' => [
+                'total'      => (int)$total_drivers,
+                'verified'   => (int)$verified_drivers,
+                'unverified' => (int)$total_drivers - (int)$verified_drivers,
+            ],
+            'senders' => [
+                'total' => (int)$total_senders,
+            ]
+        ];
+
+       
+        $stmt = $this->db->query("SELECT COUNT(*) as total_packages FROM sender_requests");
+        $total_packages = $stmt->fetch(PDO::FETCH_ASSOC)['total_packages'];
+
+        $stmt = $this->db->query("SELECT status, COUNT(*) as count FROM sender_requests GROUP BY status");
+        $packages_by_status = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $packages_by_status[$row['status']] = (int)$row['count'];
+        }
+
+        $packages_stats = [
+            'total_packages' => (int)$total_packages,
+            'by_status'      => $packages_by_status
+        ];
+
+        // Announcements stats
+        $stmt = $this->db->query("SELECT COUNT(*) as total_announcements FROM driver_announcements");
+        $total_announcements = $stmt->fetch(PDO::FETCH_ASSOC)['total_announcements'];
+
+        $stmt = $this->db->query("SELECT vehicle_type, COUNT(*) as count FROM driver_announcements GROUP BY vehicle_type");
+        $announcements_by_vehicle = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $announcements_by_vehicle[$row['vehicle_type']] = (int)$row['count'];
+        }
+
+        $announcements_stats = [
+            'total_announcements' => (int)$total_announcements,
+            'by_vehicle_type'     => $announcements_by_vehicle
+        ];
+
+        $stats['users']         = $users_stats;
+        $stats['packages']      = $packages_stats;
+        $stats['announcements'] = $announcements_stats;
+
+        return $stats;
     }
 
-    public function deleteAnnouncement($id) {
-        $this->table = "driver_announcements";
-        return $this->delete($id);
+    public function verifyDriver($driver_id) {
+        try {
+            $stmt = $this->db->prepare("UPDATE users SET isverified = TRUE WHERE user_id = :id AND role = 'driver'");
+            return $stmt->execute([':id' => $driver_id]);
+        } catch (Exception $e) {
+            throw new Exception("Failed to verify driver: " . $e->getMessage());
+        }
     }
 
-    // 📦 Gestion des colis
-    public function getPackages() {
-        $this->table = "packages";
-        return $this->findAll();
-    }
-
-    // 📝 Gestion des logs
-    public function getLogs() {
-        $this->table = "logs";
-        return $this->findAll();
-    }
-
-    // Ajouter un log
-    protected function addLog($user_id, $action) {
-        $this->table = "logs";
-        return $this->insert([
-            'user_id' => $user_id,
-            'action' => $action
-        ]);
+    public function getAllUsers(){
+        try {
+            $stmt = $this->db->prepare("select * from users");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            throw new Exception("Failed to load All Users: " . $e->getMessage());
+        }
     }
 }
 
