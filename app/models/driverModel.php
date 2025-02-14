@@ -14,12 +14,6 @@ class DriverModel extends User{
 
         $this->announcements = $announcements;
         $this->packages = $packages;
-        $this->packages_delivered = $packages_delivered;
-        $this->packages_ontheway = $packages_ontheway;
-        $this->packages_pending = $packages_pending;
-        $this->packages_cancelled = $packages_cancelled;
-        $this->packages_accepted = $packages_accepted;
-
         loadAnnouncements();
 
     }
