@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="manifest" href="../../manifest.json">
     <meta charset="utf-8">
     <title>EasyMatch - Transport</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
