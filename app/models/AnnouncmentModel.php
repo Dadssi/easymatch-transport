@@ -1,5 +1,5 @@
 <?php
-class Announcement {
+class AnnouncementModel {
     private $db;
     
     

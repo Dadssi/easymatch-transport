@@ -1,68 +1,164 @@
-<?php 
+<?php
 
-/**
- * home class
- */
-class Admin
-{
-	use Controller;
+use App\Utils\SessionManager;
+use App\Models\AdminModel;
+use App\Core\Controller; // Utiliser le trait avec le bon namespace
 
-	public function index()
-	{
+class Admin {
+    use Controller;
 
-		$this->view('admin');
-	}
-
-}
-
-// -------------------------------------------
-// -------------------------------------------
-// -------------------------------------------
-
-require_once 'app/models/Admin.php';
-require_once 'config/database.php';
-
-class AdminController {
     private $adminModel;
 
     public function __construct() {
-        $this->adminModel = new Admin(Database::getInstance()->getConnection());
+        // Vérifier si l'admin est connecté sauf pour la page login
+        if ($_GET['url'] != 'admin/login') {
+            $this->checkAdminAuth();
+        }
+        $this->adminModel = new AdminModel();
     }
 
-    public function dashboard() {
-        require 'app/views/admin/dashboard.php';
+    // 🔒 Vérification authentification admin
+    private function checkAdminAuth() {
+        if (!SessionManager::isAdmin()) {
+            header("Location: " . ROOT . "/admin/login");
+            exit();
+        }
     }
 
+    // 📌 Page d'accueil de l'admin
+    public function index() {
+        $data = [
+            'users' => $this->adminModel->getUsers(),
+            'announcements' => $this->adminModel->getDriverAnnouncements(),
+            'packages' => $this->adminModel->getPackages(),
+            'logs' => $this->adminModel->getLogs()
+        ];
+        if(isset($_GET['json'])) {
+            $this->jsonResponse($data);
+        }
+        $this->view('admin/dashboard', $data);
+    }
+
+    // 🔑 Connexion de l'admin
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $admin = $this->adminModel->authenticate($email, $password);
+
+            if ($admin) {
+                // Utilisation de SessionManager pour définir les variables de session
+                SessionManager::set('user_name', $admin->first_name . ' ' . $admin->last_name);
+                SessionManager::set('role', 'admin');
+                SessionManager::set('logged_in', true);
+                SessionManager::set('user_id', $admin->id);
+                SessionManager::regenerate(); // Sécurité : régénération de l'ID de session
+
+                if(isset($_GET['json'])) {
+                    $this->jsonResponse(['success' => true]);
+                }
+                header("Location: " . ROOT . "/admin");
+                exit();
+            } else {
+                if(isset($_GET['json'])) {
+                    $this->jsonResponse(['error' => 'Identifiants incorrects'], 401);
+                }
+                $this->view('admin/login', ['error' => 'Identifiants incorrects']);
+            }
+        } else {
+            $this->view('admin/login');
+        }
+    }
+
+    // 🚪 Déconnexion
+    public function logout() {
+        session_destroy();
+        if(isset($_GET['json'])) {
+            $this->jsonResponse(['success' => true]);
+        }
+        header("Location: " . ROOT . "/admin/login");
+        exit();
+    }
+
+    // 👥 Gestion des utilisateurs
     public function users() {
-        $users = $this->adminModel->getAllUsers();
-        require 'app/views/admin/users.php';
+        $data = [
+            'users' => $this->adminModel->getUsers()
+        ];
+        if(isset($_GET['json'])) {
+            $this->jsonResponse($data);
+        }
+        $this->view('admin/users', $data);
     }
 
-    public function updateUserStatus() {
+    // ✅ Validation/Suspension utilisateur
+    public function updateUserStatus($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userId = $_POST['user_id'];
-            $status = $_POST['status'];
-            if ($this->adminModel->updateUserStatus($userId, $status)) {
-                header("Location: /admin/users");
-                exit();
+            $is_banned = $_POST['is_banned'] ?? false;
+            $result = $this->adminModel->updateUserStatus($id, $is_banned);
+            if(isset($_GET['json'])) {
+                $this->jsonResponse(['success' => $result]);
             }
+            header("Location: " . ROOT . "/admin/users");
+            exit();
         }
     }
 
-    public function annonces() {
-        $annonces = $this->adminModel->getAllAnnonces();
-        require 'app/views/admin/annonces.php';
+    // ✅ Vérification utilisateur
+    public function verifyUser($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $result = $this->adminModel->verifyUser($id);
+            if(isset($_GET['json'])) {
+                $this->jsonResponse(['success' => $result]);
+            }
+            header("Location: " . ROOT . "/admin/users");
+            exit();
+        }
     }
 
-    public function deleteAnnonce() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $annonceId = $_POST['annonce_id'];
-            if ($this->adminModel->deleteAnnonce($annonceId)) {
-                header("Location: /admin/annonces");
-                exit();
-            }
+    // 📢 Gestion des annonces
+    public function announcements() {
+        $data = [
+            'announcements' => $this->adminModel->getDriverAnnouncements()
+        ];
+        if(isset($_GET['json'])) {
+            $this->jsonResponse($data);
         }
+        $this->view('admin/announcements', $data);
+    }
+
+    // ❌ Suppression d'une annonce
+    public function deleteAnnouncement($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $result = $this->adminModel->deleteAnnouncement($id);
+            if(isset($_GET['json'])) {
+                $this->jsonResponse(['success' => $result]);
+            }
+            header("Location: " . ROOT . "/admin/announcements");
+            exit();
+        }
+    }
+
+    // 📦 Gestion des colis
+    public function packages() {
+        $data = [
+            'packages' => $this->adminModel->getPackages()
+        ];
+        if(isset($_GET['json'])) {
+            $this->jsonResponse($data);
+        }
+        $this->view('admin/packages', $data);
+    }
+
+    // 📝 Logs système
+    public function logs() {
+        $data = [
+            'logs' => $this->adminModel->getLogs()
+        ];
+        if(isset($_GET['json'])) {
+            $this->jsonResponse($data);
+        }
+        $this->view('admin/logs', $data);
     }
 }
-?>
-
