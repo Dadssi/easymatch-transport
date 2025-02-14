@@ -145,6 +145,11 @@ class UserController {
     public function showsignupForm(){
         require_once __DIR__ . '/../views/signUp.html';
     }
+
+    public function showHome(){
+        require_once __DIR__ . '/../views/Home.view.html';
+    }
+
     public function loginForm(){
         require_once __DIR__ . '/../views/login.html';
     }
@@ -197,6 +202,11 @@ class UserController {
         $this->imageResponse($imagePath);
     }
 
+    public function logoImage(){
+        $imagePath = __DIR__ . '/../views/logo.png';
+        $this->imageResponsePNG($imagePath);
+    }
+
 
     private function jsonResponse($data, $statusCode = 200) {
         header('Content-Type: application/json');
@@ -207,6 +217,17 @@ class UserController {
 
 
     private function imageResponse($imagePath, $mimeType = 'image/jpg') {
+        if (!file_exists($imagePath)) {
+            http_response_code(404);
+            exit('Image not found');
+        }
+        header('Content-Type: ' . $mimeType);
+        header('Content-Length: ' . filesize($imagePath));
+        readfile($imagePath);
+        exit();
+    }
+
+    private function imageResponsePNG($imagePath, $mimeType = 'image/png') {
         if (!file_exists($imagePath)) {
             http_response_code(404);
             exit('Image not found');
