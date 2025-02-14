@@ -84,5 +84,10 @@ class SenderController
         $this->jsonResponse(['message' => 'Package status updated successfully'], 200);
     }
 
+    public function getAllSenders(){
+        $drivers = $this->sender->getAllSenders();
+        $this->jsonResponse($drivers);
+    }
+
 
 }
