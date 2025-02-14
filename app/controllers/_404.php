@@ -1,5 +1,6 @@
 <?php 
 
+use App\Core\Controller;
 class _404
 {
 	use Controller;

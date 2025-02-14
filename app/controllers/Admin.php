@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 use App\Utils\SessionManager;
 use App\Models\AdminModel;
 use App\Core\Controller; // Utiliser le trait avec le bon namespace
@@ -11,18 +13,19 @@ class Admin {
 
     public function __construct() {
         // Vérifier si l'admin est connecté sauf pour la page login
-        if ($_GET['url'] != 'admin/login') {
+        // if ($_GET['url'] != 'admin/login') {
             $this->checkAdminAuth();
-        }
+        // }
         $this->adminModel = new AdminModel();
     }
 
     // 🔒 Vérification authentification admin
     private function checkAdminAuth() {
-        if (!SessionManager::isAdmin()) {
-            header("Location: " . ROOT . "/admin/login");
-            exit();
-        }
+        // if (!SessionManager::isAdmin()) {
+        //     header("Location: " . ROOT . "/admin/login");
+        //     exit();
+        // }
+        return true;
     }
 
     // 📌 Page d'accueil de l'admin
@@ -36,7 +39,7 @@ class Admin {
         if(isset($_GET['json'])) {
             $this->jsonResponse($data);
         }
-        $this->view('admin/dashboard', $data);
+        $this->view('admin', $data);
     }
 
     // 🔑 Connexion de l'admin

@@ -32,7 +32,11 @@ class App
 			$this->controller = "_404";
 		}
 
-		$controller = new $this->controller;
+		// Dans App.php, modifiez la création du contrôleur :
+		$controller = "App\\Controllers\\" . $this->controller;
+		$controller = new $controller();
+
+		// $controller = new $this->controller;
 
 		/** select method **/
 		if(!empty($URL[1]))

@@ -1,8 +1,5 @@
 <?php 
-
-/**
- * home class
- */
+use App\Core\controller;
 class Home
 {
 	use Controller;
