@@ -1,7 +1,8 @@
 <?php
+namespace app\core;
+use app\utils\SessionManager;
 
-require_once __DIR__ . '/../utils/SessionManager.php';
-require_once __DIR__ . '/../config/routes.php';
+use app\controllers\SignUpController;
 
 SessionManager::startSession();
 
@@ -79,7 +80,7 @@ if (in_array('admin', $middleware) && !SessionManager::isAdmin()) {
 }
 
 
-$controllerFile = __DIR__ . "/../controller/{$controllerName}.php";
+$controllerFile = __DIR__ . "/../controllers/{$controllerName}.php";
 if (file_exists($controllerFile)) {
     require_once $controllerFile;
     $controller = new $controllerName();

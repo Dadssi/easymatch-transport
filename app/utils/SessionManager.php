@@ -1,11 +1,14 @@
 <?php
-namespace App\Utils;
 
-session_start(); 
+namespace app\utils;
 
 class SessionManager
 {
 
+
+    public static function startSession(){
+        session_start();
+    }
 
     static public function isAuthenticated()
     {

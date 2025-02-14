@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+require_once __DIR__ . '/../app/core/Router.php';
+require_once __DIR__ . '/../app/controllers/SignUpController.php';
+require_once __DIR__ . '/../app/models/User.php';
+
+
+=======
 <?php 
 use App\Core\App;
 
@@ -21,3 +32,4 @@ $app->loadController();
 
 // $app = new App();
 
+>>>>>>> 9d1b4c8dc3be75093a94f1a1c68a559372f086f1
