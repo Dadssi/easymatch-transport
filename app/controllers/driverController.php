@@ -163,5 +163,10 @@ class DriverController {
         $drivers = $this->driverModel->getAllDrivers();
         $this->jsonResponse($drivers);
     }
+
+    public function getPackges(){
+        $packages = $this->driverModel->getPackages();
+        $this->jsonResponse($packages);
+    }
 }
 ?>
