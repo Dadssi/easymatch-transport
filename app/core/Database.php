@@ -1,5 +1,6 @@
 <?php 
 
+
 Trait Database
 {
 
@@ -47,7 +48,12 @@ Trait Database
 
 		return false;
 	}
+
+
+	public function getConnection()
+    {
+        return $this->connect();  // Appeler la méthode privée connect()
+    }
 	
 }
-
 

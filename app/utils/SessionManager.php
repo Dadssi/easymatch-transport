@@ -1,7 +1,7 @@
 <?php
 session_start(); 
 
-class SessionManagement
+class SessionManager
 {
    
 
