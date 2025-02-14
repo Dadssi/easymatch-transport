@@ -1,5 +1,8 @@
 <?php
-require_once'../utils/SessionManager.php';
+
+use App\Utils\SessionManager;
+use App\Models\AdminModel;
+use App\Core\Controller; // Utiliser le trait avec le bon namespace
 
 class Admin {
     use Controller;

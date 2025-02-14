@@ -1,0 +1,20 @@
+{
+    "name": "ycode/easymatch-transport",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Models\\": "app/models/",
+            "Utils\\": "app/utils/",
+            "Core\\": "app/core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "dadssi",
+            "email": "dadssi.mohamed.abdelhak@gmail.com"
+        }
+    ],
+    "require": {}
+}
+
+

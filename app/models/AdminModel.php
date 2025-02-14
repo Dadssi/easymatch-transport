@@ -1,6 +1,14 @@
 <?php
 
+
+namespace App\Models;
+use app\core\Model;
+
+// namespace Models\AdminModel;
+
+
 class AdminModel {
+    
     use Model;
 
     protected $table = "users";

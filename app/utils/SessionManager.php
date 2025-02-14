@@ -1,4 +1,6 @@
 <?php
+namespace App\Utils;
+
 session_start(); 
 
 class SessionManager

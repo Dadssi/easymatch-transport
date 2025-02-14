@@ -1,6 +1,10 @@
 <?php 
 
+namespace app\core;
+use app\core\Database;
+
 trait Model {
+    
     use Database;
 
     // protected $table = "";

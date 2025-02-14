@@ -1,5 +1,11 @@
 <?php 
 
+namespace app\core;
+
+use PDO;
+use PDOException;
+
+
 Trait Database
 {
 	private function connect()
