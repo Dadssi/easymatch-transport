@@ -2,29 +2,14 @@
     "name": "EasyMatch - Transport",
     "short_name": "EasyMatch",
     "description": "La première plateforme d'envoi des colis au Maroc",
-    "start_url": "./app/views/home.view.php",
+    "start_url": "http://localhost/easymatch-transport/public/home",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#007bff",
+    "theme_color": "#d71920",
     "icons": [
       {
-        "src": "/assets/img/icons/icon-192x192.png",
+        "src": "public/assets/img/logo-easymatch.png",
         "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "/assets/img/icons/icon-256x256.png",
-        "sizes": "256x256",
-        "type": "image/png"
-      },
-      {
-        "src": "/assets/img/icons/icon-384x384.png",
-        "sizes": "384x384",
-        "type": "image/png"
-      },
-      {
-        "src": "/assets/img/icons/icon-512x512.png",
-        "sizes": "512x512",
         "type": "image/png"
       }
     ]
