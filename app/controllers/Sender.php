@@ -3,14 +3,14 @@
 /**
  * home class
  */
-class Home
+class Sender
 {
 	use Controller;
 
 	public function index()
 	{
 
-		$this->view('home');
+		$this->view('sender');
 	}
 
 }
