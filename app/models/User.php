@@ -1,21 +1,22 @@
 <?php 
 
+require_once __DIR__.'/../core/Database.php';
+require_once __DIR__.'/../core/Model.php';
 
-/**
- * User class
- */
 
-	class User
+class User
 	{
+		
 		private $id;
 		private $nom;
 		private $prenom;
 		private $email;
 		private $password;
-		private $pdo;
+		private $db;
 			 
 		public function __construct($pdo){
-			$this->pdo = $pdo;
+			$this->db = new Database;
+			$this->pdo = $this->db->getConnection();
 		}
 	
 	

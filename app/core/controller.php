@@ -1,5 +1,5 @@
 <?php 
-
+namespace core\controller;
 Trait Controller
 {
 

@@ -1,79 +1,90 @@
 <?php
-require_once '../core/database.php'; // Connexion à la base de données
-require_once '../core/Model.php'; // Inclure le trait Model
-require_once '../models/User.php'; // Inclure le modèle User
 
-class SignUpController {
-    private $pdo;
-    private $user;
+// namespace App\Controllers;
 
-    public function __construct() {
-        // Créer une instance de DatabaseConnection et obtenir la connexion PDO
-        $dbConnection = new DatabaseConnection();
-        $this->pdo = $dbConnection->getConnection();  // Utiliser la méthode publique getConnection()
-        $this->user = new User($this->pdo);
+// use App\Models\User;
+use Core\Database;
+// use Core\Controller;
+// use Core\Request;
+
+require_once __DIR__.'/../Models/User.php';
+
+class SignUpController 
+{
+    // Méthode pour afficher le formulaire d'inscription
+    public function showsignupForm()
+    {
+        return $this->view('signup');
     }
 
-    public function registerUser() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Récupérer les entrées et les sécuriser
-            $nom = htmlspecialchars($_POST['last_name']);
-            $prenom = htmlspecialchars($_POST['first_name']);
-            $email = htmlspecialchars($_POST['email']);
-            $password = $_POST['password'];
-            $confirm_password = $_POST['confirm_password'];
-            $role = $_POST['role'];
+    // Méthode pour enregistrer un utilisateur
+    public function registerUser()
+    {
+        // Récupérer les données du formulaire
+        $data = $_POST;
 
-            // Vérification des mots de passe
-            if ($password !== $confirm_password) {
-                die("Les mots de passe ne correspondent pas.");
-            }
+        // Valider les données
+        // if (!$this->validateSignupData($data)) {
+        //     return $this->view('signup', ['errors' => $this->errors]);
+        // }
 
-            // Validation de l'email (utiliser un regex simple)
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                die("L'email n'est pas valide.");
-            }
-
-            // Vérification de la force du mot de passe
-            if (strlen($password) < 8) {
-                die("Le mot de passe doit contenir au moins 8 caractères.");
-            }
-
-            // Vérifier si l'utilisateur existe déjà
-            if ($this->user->getUserByEmail($email)) {
-                die("Cet email est déjà utilisé.");
-            }
-
-            // Hachage du mot de passe
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-            // Créer l'utilisateur
-            if ($this->user->createUser($nom, $prenom, $email, $hashed_password)) {
-                // Récupérer l'utilisateur créé
-                $user = $this->user->getUserByEmail($email);
-                session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['role'] = $role;
-
-                // Redirection selon le rôle
-                switch ($role) {
-                    case 'admin':
-                        header("Location: ../views/admin_dashboard.php");
-                        break;
-                    case 'sender':
-                        header("Location: ../views/sender_dashboard.php");
-                        break;
-                    case 'driver':
-                        header("Location: ../views/driver_dashboard.php");
-                        break;
-                    default:
-                        header("Location: ../views/login.php");
-                        break;
-                }
-                exit();
-            } else {
-                die("Erreur lors de l'inscription.");
-            }
+        
+        $user = new User(Database::getConnection());
+        if ($user->getUserByEmail($data['email'])) {
+            $this->errors['email'] = 'Cet email est déjà utilisé.';
+            return $this->view('signup', ['errors' => $this->errors]);
         }
+        $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $user->createUser($data['nom'], $data['prenom'], $data['email'], $password);
+
+        
+        exit;
+    }
+
+    // Méthode pour valider les données d'inscription
+    private function validateSignupData($data)
+    {
+        $this->errors = [];
+
+        // Validation du prénom
+        if (empty($data['prenom'])) {
+            $this->errors['prenom'] = 'Le prénom est requis.';
+        }
+
+        // Validation du nom
+        if (empty($data['nom'])) {
+            $this->errors['nom'] = 'Le nom est requis.';
+        }
+
+        // Validation de l'email
+        if (empty($data['email'])) {
+            $this->errors['email'] = 'L\'email est requis.';
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->errors['email'] = 'L\'email n\'est pas valide.';
+        }
+
+        // Validation du mot de passe
+        if (empty($data['password'])) {
+            $this->errors['password'] = 'Le mot de passe est requis.';
+        } elseif ($data['password'] !== $data['confirm_password']) {
+            $this->errors['confirm_password'] = 'Les mots de passe ne correspondent pas.';
+        }
+
+        // Validation du téléphone
+        if (empty($data['phone'])) {
+            $this->errors['phone'] = 'Le téléphone est requis.';
+        }
+
+        // Validation de la date de naissance
+        if (empty($data['birthday'])) {
+            $this->errors['birthday'] = 'La date de naissance est requise.';
+        }
+
+        // Validation du rôle
+        if (empty($data['role'])) {
+            $this->errors['role'] = 'Le rôle est requis.';
+        }
+
+        return empty($this->errors);
     }
 }
