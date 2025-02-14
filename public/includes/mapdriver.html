@@ -110,17 +110,6 @@
         const start = JSON.parse(startValue);
         const end = JSON.parse(endValue);
 
-<<<<<<< HEAD
-        const waypointSelects = document.querySelectorAll('#waypoints select');
-        const waypoints = Array.from(waypointSelects)
-            .filter(select => select.value)
-            .map(select => JSON.parse(select.value));
-
-        const coordinates = [
-            [start.lng, start.lat],
-            ...waypoints.map(point => [point.lng, point.lat]),
-            [end.lng, end.lat]
-=======
         const waypointSelects = document.querySelectorAll("#waypoints select");
         const waypoints = Array.from(waypointSelects)
           .filter((select) => select.value)
@@ -130,72 +119,11 @@
           [start.lng, start.lat],
           ...waypoints.map((point) => [point.lng, point.lat]),
           [end.lng, end.lat],
->>>>>>> origin/main
         ];
 
         console.log("Coordonnees envoyees à l'API :", coordinates);
 
         try {
-<<<<<<< HEAD
-            // Suppression des anciens elements
-            if (routeLayer) {
-                map.removeLayer(routeLayer);
-            }
-
-            map.eachLayer(layer => {
-                if (layer instanceof L.Marker) {
-                    map.removeLayer(layer);
-                }
-            });
-
-            // Envoi de la requête à OpenRouteService
-            const response = await fetch('https://api.openrouteservice.org/v2/directions/driving-car/geojson', {
-                method: 'POST',
-                headers: {
-                    'Authorization': OPENROUTE_API_KEY,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ coordinates: coordinates })
-            });
-
-            if (!response.ok) {
-                console.error("Erreur HTTP :", response.status, await response.text());
-                throw new Error("Erreur API OpenRouteService: " + response.status);
-            }
-
-            const data = await response.json();
-            console.log("Reponse API :", data);
-
-            if (!data.features || data.features.length === 0) {
-                throw new Error("Aucun itineraire trouve.");
-            }
-
-            // Ajouter des marqueurs
-            coordinates.forEach(coord => {
-                L.marker([coord[1], coord[0]]).addTo(map);
-            });
-
-            // Dessiner la route
-            const route = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
-            routeLayer = L.polyline(route, { color: 'blue', weight: 5 }).addTo(map);
-            map.fitBounds(routeLayer.getBounds());
-
-        } catch (error) {
-            console.error("Erreur lors du calcul de l'itineraire :", error);
-            alert("Erreur lors du calcul de l'itineraire. Verifiez vos selections.");
-        }
-    }
-
-
-
-    // Initialisation
-    initMap();
-    loadCities();
-
-</script>
-</body>
-</html>
-=======
           // Suppression des anciens elements
           if (routeLayer) {
             map.removeLayer(routeLayer);
@@ -264,4 +192,3 @@
     </script>
   </body>
 </html>
->>>>>>> origin/main
