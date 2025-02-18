@@ -1,59 +1,41 @@
 <?php 
 
-namespace app\core;
+class Database {
+    private static $instance = null;
+    private $pdo;
 
-use PDO;
-use PDOException;
+    private function __construct() {
+        $config = [
+            'host' => 'localhost',
+            'dbname' => 'easymatch',
+            'user' => 'postgres',
+            'pass' => 'osama',
+            'charset' => 'utf8'
+        ];
 
+        $dsn = "pgsql:host={$config['host']};port=5433;dbname={$config['dbname']}";
 
-Trait Database
-{
-	private function connect()
-    {
-        $string = "pgsql:host=".DBHOST.";dbname=".DBNAME;
         try {
-            $con = new PDO($string, DBUSER, DBPASS);
-            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $con;
-        } catch(PDOException $e) {
-            die("Erreur de connexion : " . $e->getMessage());
+            $this->pdo = new PDO($dsn, $config['user'], $config['pass'], [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]);
+        } catch (PDOException $e) {
+            die("Database connection failed: " . $e->getMessage());
         }
     }
 
-    public function query($query, $data = [])
-    {
-
-        $con = $this->connect();
-        $stm = $con->prepare($query);
-
-		$check = $stm->execute($data);
-		if($check)
-		{
-			$result = $stm->fetchAll(PDO::FETCH_OBJ);
-			if(is_array($result) && count($result))
-			{
-				return $result;
-			}
-		}
-		return false;
-	}
-
-	public function get_row($query, $data = [])
-	{
-		$con = $this->connect();
-		$stm = $con->prepare($query);
-
-        $check = $stm->execute($data);
-        if($check)
-        {
-            $result = $stm->fetchAll(PDO::FETCH_OBJ);
-            if(is_array($result) && count($result))
-            {
-                return $result[0];
-            }
+    public static function getInstance(): self {
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
-
-        return false;
+        return self::$instance;
     }
 
+   
+    public function getConnection(): PDO {
+        return $this->pdo;
+    }
 }
+
+?>

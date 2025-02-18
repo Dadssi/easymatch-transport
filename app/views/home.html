@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>EasyMatch - Transport</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="transport de colis partout au Maroc" name="keywords">
+    <meta content="la première plateforme d'envoi des colis au Maroc" name="description">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .card-animate {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .announcement-card {
+            transition: all 0.3s ease;
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-4xl font-bold mb-4 animate-fade-in-up">
+                EasyMatch Transport
+            </h1>
+            <p class="text-xl opacity-90">
+                Trouvez le transport idéal pour vos colis partout au Maroc
+            </p>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="container mx-auto px-4 -mt-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="relative">
+                    <i data-feather="map-pin" class="absolute left-3 top-3 text-gray-400 w-5 h-5"></i>
+                    <select id="startCity" class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Ville de départ</option>
+                    </select>
+                </div>
+                <div class="relative">
+                    <i data-feather="map-pin" class="absolute left-3 top-3 text-gray-400 w-5 h-5"></i>
+                    <select id="endCity" class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Ville d'arrivée</option>
+                    </select>
+                </div>
+                <div class="relative">
+                    <i data-feather="truck" class="absolute left-3 top-3 text-gray-400 w-5 h-5"></i>
+                    <select id="vehicleType" class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Type de véhicule</option>
+                        <option value="Car">Voiture</option>
+                        <option value="Truck">Camion</option>
+                        <option value="Van">Fourgonnette</option>
+                    </select>
+                </div>
+                <button onclick="filterAnnouncements()" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center gap-2">
+                    <i data-feather="search" class="w-5 h-5"></i>
+                    Rechercher
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">
+                Annonces de Transport
+            </h2>
+            <span id="announcement-count" class="text-gray-600"></span>
+        </div>
+
+        <div id="announcements-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Announcements will be loaded here -->
+        </div>
+    </div>
+
+      <!-- Demand Modal (Hidden by default) -->
+<div id="demandModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <!-- Modal content -->
+    <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 relative">
+      <!-- Close button -->
+      <button 
+        class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" 
+        onclick="closeDemandModal()"
+      >
+        <i data-feather="x"></i>
+      </button>
+  
+      <h2 class="text-xl font-bold mb-4">Make a Demand</h2>
+  
+      <!-- Form -->
+      <form id="demandForm" class="space-y-4">
+        <!-- Hidden input to store the announcement ID -->
+        <input type="hidden" id="announcement_id" />
+  
+        <!-- Package Size -->
+        <div>
+          <label for="package_size" class="block text-sm font-medium text-gray-700">
+            Package Size
+          </label>
+          <input 
+            type="text" 
+            id="package_size" 
+            class="w-full mt-1 border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="e.g. Small, Medium, Large"
+            required
+          />
+        </div>
+  
+        <!-- Pickup City -->
+        <div>
+          <label for="pickup_city" class="block text-sm font-medium text-gray-700">
+            Pickup City
+          </label>
+          <select 
+            id="pickup_city" 
+            class="w-full mt-1 border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+            required
+          >
+            <option value="">-- Select City --</option>
+            <!-- Filled dynamically -->
+          </select>
+        </div>
+  
+        <!-- Dropoff City -->
+        <div>
+          <label for="dropoff_city" class="block text-sm font-medium text-gray-700">
+            Dropoff City
+          </label>
+          <select 
+            id="dropoff_city" 
+            class="w-full mt-1 border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+            required
+          >
+            <option value="">-- Select City --</option>
+            <!-- Filled dynamically -->
+          </select>
+        </div>
+  
+        <!-- Mini Map -->
+        <div class="mt-4 h-64" id="demand-map"></div>
+  
+        <!-- Submit -->
+        <button 
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Send Demand
+        </button>
+      </form>
+    </div>
+  </div>
+
+    <script>
+
+
+
+
+            let globalCitiesData = [];
+
+            async function fetchGlobalCities() {
+            try {
+                const response = await fetch('/user/cities');
+                if (!response.ok) {
+                throw new Error('Failed to fetch global cities');
+                }
+                const data = await response.json();
+                globalCitiesData = data.cities;
+            } catch (error) {
+                console.error('Error fetching global cities:', error);
+            }
+            }
+
+            document.addEventListener('DOMContentLoaded', fetchGlobalCities);
+
+        // Initialize Feather Icons
+        feather.replace();
+        
+        let allAnnouncements = [];
+        let allCities = [];
+        let allDrivers = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await loadData();
+                initializeAOS();
+            } catch (error) {
+                console.error('Error initializing page:', error);
+            }
+        });
+
+        function initializeAOS() {
+            AOS.init({
+                duration: 800,
+                offset: 100,
+                once: true
+            });
+        }
+
+        function renderAnnouncements(announcements) {
+            const container = document.getElementById('announcements-container');
+            const countElement = document.getElementById('announcement-count');
+            
+            container.innerHTML = '';
+            countElement.textContent = `${announcements.length} annonce(s) trouvée(s)`;
+
+            announcements.forEach((announcement, index) => {
+                const citiesPath = announcement.cities
+                    .map(c => c.city)
+                    .join(' → ');
+
+                const card = `
+                    <div class="announcement-card bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="${index * 100}">
+                        <div class="relative h-48 bg-gray-200">
+                            <img src="/api/placeholder/400/320" alt="${announcement.vehicle_type}" class="w-full h-full object-cover">
+                            <div class="absolute bottom-4 left-4 bg-white px-4 py-1 rounded-full text-blue-600 font-semibold">
+                                ${announcement.vehicle_type}
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-gray-600 mb-4">
+                                <i data-feather="map-pin" class="w-4 h-4"></i>
+                                <span>${citiesPath}</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-2 text-gray-700 mb-3">
+                                <i data-feather="calendar" class="w-4 h-4"></i>
+                                <div>
+                                    <p class="text-sm">Du: ${formatDate(announcement.available_from)}</p>
+                                    <p class="text-sm">Au: ${formatDate(announcement.available_until)}</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t">
+                                <p class="text-gray-800 font-medium">
+                                    ${announcement.driver.first_name} ${announcement.driver.last_name}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+
+            // Reinitialize Feather icons for newly added cards
+            feather.replace();
+
+            if (announcements.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-5">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Aucune annonce ne correspond à vos critères</h3>
+                        <p class="text-gray-600">Veuillez modifier vos filtres de recherche</p>
+                    </div>
+                `;
+            }
+        }
+
+
+        // Load all data when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await loadData();
+                setupDatePickers();
+            } catch (error) {
+                console.error('Error initializing page:', error);
+            }
+        });
+
+        async function loadData() {
+            try {
+                const [announcementsRes, driversRes, citiesRes] = await Promise.all([
+                    fetch('/user/getallanouncements'),
+                    fetch('/user/getalldrivers'),
+                    fetch('/user/getAllAnnoucementsCities')
+                ]);
+
+                const [announcements, drivers, cities] = await Promise.all([
+                    announcementsRes.json(),
+                    driversRes.json(),
+                    citiesRes.json()
+                ]);
+
+                allDrivers = drivers;
+                allCities = cities;
+
+                // Process and combine the data
+                allAnnouncements = announcements.map(announcement => {
+                    const driver = drivers.find(d => d.user_id === announcement.driver_id);
+                    const routeCities = cities
+                        .filter(c => c.announcement_id === announcement.announcement_id)
+                        .sort((a, b) => a.sequence - b.sequence);
+
+                    return {
+                        ...announcement,
+                        driver: driver || { first_name: 'Unknown', last_name: '' },
+                        cities: routeCities
+                    };
+                });
+
+                // Populate filters
+                populateFilters();
+                
+                // Show announcements
+                renderAnnouncements(allAnnouncements);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Une erreur est survenue lors du chargement des données');
+            }
+        }
+
+        function populateFilters() {
+            const uniqueCities = [...new Set(allCities.map(c => c.city))].sort();
+            const startCitySelect = document.getElementById('startCity');
+            const endCitySelect = document.getElementById('endCity');
+
+            uniqueCities.forEach(city => {
+                startCitySelect.add(new Option(city, city));
+                endCitySelect.add(new Option(city, city));
+            });
+        }
+
+        function filterAnnouncements() {
+            const startCity = document.getElementById('startCity').value;
+            const endCity = document.getElementById('endCity').value;
+            const vehicleType = document.getElementById('vehicleType').value;
+
+            let filtered = [...allAnnouncements];
+
+            if (startCity && endCity) {
+                filtered = filtered.filter(announcement => {
+                    const cities = announcement.cities.map(c => c.city);
+                    const startIndex = cities.indexOf(startCity);
+                    const endIndex = cities.indexOf(endCity);
+                    return startIndex !== -1 && endIndex !== -1 && startIndex < endIndex;
+                });
+            }
+
+            if (vehicleType) {
+                filtered = filtered.filter(a => a.vehicle_type === vehicleType);
+            }
+
+            renderAnnouncements(filtered);
+        }
+
+        function renderAnnouncements(announcements) {
+            const container = document.getElementById('announcements-container');
+            const countElement = document.getElementById('announcement-count');
+            
+            container.innerHTML = '';
+            countElement.textContent = `${announcements.length} annonce(s) trouvée(s)`;
+
+            announcements.forEach(announcement => {
+                const citiesPath = announcement.cities
+                    .map(c => c.city)
+                    .join(' → ');
+
+                    const verifiedTag = announcement.driver.isverified 
+    ? `<span class="ml-2 px-2 py-1 text-xs font-semibold text-green-700 bg-green-200 rounded-full">✔ Verified</span>` 
+    : '';
+
+const card = `
+    <div class="col-lg-4 col-md-6 wow fadeInUp">
+        <div class="announcement-card h-100">
+            <div class="position-relative">
+                <img class="img-fluid w-100" src="/user/${announcement.vehicle_type.toLowerCase()}image" alt="${announcement.vehicle_type}">
+                <div class="vehicle-badge text-primary">
+                    ${announcement.vehicle_type}
+                </div>
+            </div>
+            <div class="p-4">
+                <h5 class="mb-3">${citiesPath}</h5>
+                <p class="mb-2">
+                    <strong>Conducteur:</strong> 
+                    ${announcement.driver.first_name} ${announcement.driver.last_name} 
+                    ${verifiedTag}
+                </p>
+                <p class="mb-2">
+                    <strong>Disponible du:</strong><br>
+                    ${formatDate(announcement.available_from)}
+                </p>
+                <p class="mb-0">
+                    <strong>Jusqu'au:</strong><br>
+                    ${formatDate(announcement.available_until)}
+                </p>
+                <button class="mt-3 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 make-demand-btn" data-id="${announcement.announcement_id}">
+                    Make a Demand
+                </button>
+            </div>
+        </div>
+    </div>
+`;
+
+let profileData;
+container.insertAdjacentHTML('beforeend', card);
+
+            });
+
+            if (announcements.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <h3>Aucune annonce ne correspond à vos critères</h3>
+                        <p>Veuillez modifier vos filtres de recherche</p>
+                    </div>
+                `;
+            }
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleString('fr-FR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function showError(message) {
+            const container = document.getElementById('announcements-container');
+            container.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="alert alert-danger" role="alert">
+                        ${message}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        document.addEventListener('click', async function(event) {
+    if (event.target.classList.contains('make-demand-btn')) {
+
+    const announcementId = event.target.getAttribute('data-id');
+    const announcement = allAnnouncements.find(a => a.announcement_id == announcementId);
+    let profileRes;
+    try {
+      profileRes = await fetch('/sender/profile');
+      if (profileRes.status === 408) {
+        window.location.href = '/user/login';
+        return;
+      } else if (!profileRes.ok) {
+        throw new Error('Error fetching profile');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Unable to verify user status.');
+      return;
+    }
+    profileData = await profileRes.json();
+    openDemandModal(announcement);
+
+  }
+});
+
+/**
+ * Opens the Demand Modal with data from the selected announcement.
+ */
+function openDemandModal(announcement) {
+  // Fill the hidden announcement_id input
+  document.getElementById('announcement_id').value = announcement.announcement_id;
+
+  // Clear and populate city selects with only the announcement's cities
+  const pickupSelect = document.getElementById('pickup_city');
+  const dropoffSelect = document.getElementById('dropoff_city');
+  pickupSelect.innerHTML = '<option value="">-- Select City --</option>';
+  dropoffSelect.innerHTML = '<option value="">-- Select City --</option>';
+
+  announcement.cities.forEach(cityObj => {
+    const cityName = cityObj.city;
+    // Pickup option
+    const pickupOption = document.createElement('option');
+    pickupOption.value = cityName;
+    pickupOption.textContent = cityName;
+    pickupSelect.appendChild(pickupOption);
+    // Dropoff option
+    const dropoffOption = document.createElement('option');
+    dropoffOption.value = cityName;
+    dropoffOption.textContent = cityName;
+    dropoffSelect.appendChild(dropoffOption);
+  });
+
+ 
+  document.getElementById('demandModal').classList.remove('hidden');
+
+  
+  initDemandMap(announcement.cities);
+}
+
+/**
+ * Closes the Demand Modal.
+ */
+function closeDemandModal() {
+  document.getElementById('demandModal').classList.add('hidden');
+}
+
+
+
+
+
+        let demandMap;
+let routeLayer;
+
+function initDemandMap(announcementCities) {
+  // If map is already initialized, remove any existing map
+  if (demandMap) {
+    demandMap.remove();
+  }
+
+  // Create the map in the 'demand-map' div
+  demandMap = L.map('demand-map').setView([31.7917, -7.0926], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(demandMap);
+
+  // For each city in the announcement, find its coordinates from globalCitiesData
+  const routeCoordinates = announcementCities.map(cityObj => {
+    // Compare names (case-insensitive) to find the matching city
+    const globalCity = globalCitiesData.find(c => c.city.toLowerCase() === cityObj.city.toLowerCase());
+    return globalCity ? [globalCity.lat, globalCity.lon] : null;
+  }).filter(coord => coord !== null);
+
+  // Draw route if at least two valid coordinates are found
+  if (routeCoordinates.length >= 2) {
+    routeLayer = L.polyline(routeCoordinates, { color: 'blue' }).addTo(demandMap);
+    demandMap.fitBounds(routeLayer.getBounds());
+  } else if (routeCoordinates.length === 1) {
+    // If only one coordinate is available, center the map on it
+    demandMap.setView(routeCoordinates[0], 10);
+  }
+}
+
+
+
+
+
+
+        document.getElementById('demandForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const announcementId = document.getElementById('announcement_id').value;
+  const packageSize   = document.getElementById('package_size').value;
+  const pickupCity    = document.getElementById('pickup_city').value;
+  const dropoffCity   = document.getElementById('dropoff_city').value;
+
+  try {
+    const response = await fetch('/sender/requests', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        announcement_id: announcementId,
+        package_size   : packageSize,
+        pickup_city    : pickupCity,
+        dropoff_city   : dropoffCity,
+        sender_id : profileData.user.user_id
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Error creating demand');
+    }
+
+    alert('Demand created successfully!');
+    closeDemandModal();
+  } catch (error) {
+    console.error(error);
+    alert('Failed to create demand. Please try again.');
+  }
+});
+function setupDatePickers() {
+  // Your date picker initialization logic
+}
+    </script>
+  
+  
+</body>
+</html>

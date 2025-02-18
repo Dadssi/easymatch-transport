@@ -1,8 +1,7 @@
 <?php
-namespace app\core;
-use app\utils\SessionManager;
 
-use app\controllers\SignUpController;
+require_once __DIR__ . '/../core/Database.php';
+require_once __DIR__ . '/../utils/SessionManager.php';
 
 SessionManager::startSession();
 
@@ -21,31 +20,24 @@ foreach ($routes as $key => $route) {
     error_log("Route Loaded: $key");
 }
 
-
 function matchRoute($method, $path, $routes) {
     foreach ($routes as $routeKey => $route) {
         [$routeMethod, $routePath] = explode('|', $routeKey);
 
-        
         if ($method !== $routeMethod) {
             continue;
         }
 
-        
         $routeRegex = preg_replace('/\{[^\}]+\}/', '([^/]+)', $routePath);
 
-       
         if (preg_match('#^' . $routeRegex . '$#', $path, $matches)) {
-            
             array_shift($matches);
             return [$route, $matches];
         }
     }
 
-   
     return [null, []];
 }
-
 
 [$matchedRoute, $routeParams] = matchRoute($method, $path, $routes);
 
@@ -79,14 +71,14 @@ if (in_array('admin', $middleware) && !SessionManager::isAdmin()) {
     exit();
 }
 
-
 $controllerFile = __DIR__ . "/../controllers/{$controllerName}.php";
 if (file_exists($controllerFile)) {
     require_once $controllerFile;
-    $controller = new $controllerName();
+    
+    $pdo = Database::getInstance()->getConnection();
+    $controller = new $controllerName($pdo);
 
     if (method_exists($controller, $actionName)) {
-        
         call_user_func_array([$controller, $actionName], $routeParams);
     } else {
         echo "Error: Action not found!";
